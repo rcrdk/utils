@@ -9,7 +9,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>GroupBy</summary>
    
    ---
-   `group-by.ts`
+   [`group-by.ts`](https://github.com/rcrdk/utils/blob/main/functions/group-by.ts)
 
    Groups an array of objects by a specific key. From time to time I need to use the newly or not so `Object.groupBy(items, callbackFn)`, and the problem was that this method is only supported in [newly versions of Node (21.x)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/groupBy#browser_compatibility). I faced this issue after deploying an app at Vercel where the Node version at the time was the 20.x as the newest available or when I was coding a React Native App.
 
@@ -40,7 +40,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Tailwind ClassName Merge</summary>
 
    ---
-   `tw-cn-merge.ts`
+   [`tw-cn-merge.ts`](https://github.com/rcrdk/utils/blob/main/functions/tw-cn-merge.ts)
 
    Combines class names into a single string, handling Tailwind CSS class conflicts.
 
@@ -59,7 +59,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Price Formatted to PT-BR</summary>
    
    ---
-   `price-formatted-ptbr.ts`
+   [`price-formatted-ptbr.ts`](https://github.com/rcrdk/price-formatted-ptbr.ts/copy-to-clipboard.ts)
 
    Formats a numeric amount as a currency string in Brazilian Real (BRL).
 
@@ -75,7 +75,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Generate Slug</summary>
    
    ---
-   `generate-slug.ts`
+   [`generate-slug.ts`](https://github.com/rcrdk/utils/blob/main/functions/generate-slug.ts)
 
    Generates a URL-friendly slug from a given string.
 
@@ -91,7 +91,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Is Query Included?</summary>
    
    ---
-   `is-query-included.ts`
+   [`is-query-included.ts`](https://github.com/rcrdk/utils/blob/main/is-query-included.ts.ts)
 
    Checks if the query string is included in the stringToCompare after normalization.
 
@@ -136,7 +136,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Copy Text To Clipboard</summary>
 
    ---
-   `copy-to-clipboard.ts`
+   [`copy-to-clipboard.ts`](https://github.com/rcrdk/utils/blob/main/copy-to-clipboard.ts.ts)
 
    Copies the provided text to the clipboard asynchronously.
 
@@ -154,7 +154,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Component with 'as' prop</summary>
 
    ---
-   `component-as-prop.tsx`
+   [`component-as-prop.tsx`](https://github.com/rcrdk/utils/blob/main/react/component-as-prop.tsx)
 
   Create custom components with `as` prop with TypeScript.
 </details>
@@ -167,7 +167,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Convert an entire folder of images to WEBP format</summary>
 
    ---
-   `convert-image-directory-to-webp.sh`
+   [`convert-image-directory-to-webp.sh`](https://github.com/rcrdk/utils/blob/main/shell/convert-image-directory-to-webp.sh)
 
   I was having trouble and wasting my time by converting file by file in command line. This script could help you too:  
 
@@ -193,7 +193,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>Optional properties on types utility</summary>
 
    ---
-   `optional.ts`
+   [`optional.ts`](https://github.com/rcrdk/utils/blob/main/typescript/optional.ts)
 
   Make some properties optional on type
 
@@ -216,7 +216,7 @@ I created this repository to put together all utils and helpers that I need from
    <summary>React Native + Expo</summary>
 
    ---
-   `react-native-expo/*`
+   [`react-native-expo/*`](https://github.com/rcrdk/utils/tree/main/linting/react-native-expo)
 
    Read the [Expo Docs](https://docs.expo.dev/guides/using-eslint/) on using ESlint and Prettier.
 
