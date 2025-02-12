@@ -303,8 +303,43 @@ I created this repository to put together all utils and helpers that I need from
 </details>
 
 <details>
-  <summary>Sort imports and exports</summary>
+  <summary>React 19 + Next.js 15 + ESlint 9</summary>
+
+  ---
+  [`react-nextjs-eslint9`](https://github.com/rcrdk/utils/tree/main/linting/react-nextjs-eslint9)
+
+  Here is a basic setup with the latest versions of React, Next.js and ESlint.
+</details>
+
+<details>
+  <summary>Prettier Sort imports and exports</summary>
    
+  ---
+  That's a great plugin for who always keep reordering and formatting imports and exports. Check it out the [plugin repository](https://github.com/IanVS/prettier-plugin-sort-imports).
+
+  **Depependencies:**
+  ```shell
+    pnpm add -D @ianvs/prettier-plugin-sort-imports
+  ```
+   **Setup:**
+  ```json
+  {
+    "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-sort-json"],
+    "importOrder": [
+      "^(react/(.*)$)|^(react$)",
+      "^(next/(.*)$)|^(next$)",
+      "<THIRD_PARTY_MODULES>",
+      "",
+      "^@/(.*)$",
+      "^[./]"
+    ],
+    "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"]
+  }
+  ```
+
+  > [!NOTE]  
+  > The below plugin was the first wan that I've been using, but recently I discovered a better one.
+
   ---
   That's a great plugin for who always keep reordering and formatting imports and exports. Check it out the [plugin repository](https://github.com/lydell/eslint-plugin-simple-import-sort).
 
@@ -457,3 +492,4 @@ I created this repository to put together all utils and helpers that I need from
 - [**Tanstack React Query**](https://tanstack.com/query/latest): This is a JavaScript library that helps developers fetch, cache, and update data in React applications
 - [**Fancyapps / Fancybox**](https://fancyapps.com/fancybox/): Fancybox is the ultimate JavaScript lightbox alternative that sets the standard for premium user experience in multimedia display. Supports images, videos, maps, inline content, iframes and any other HTML content.
 - [**KY**](https://github.com/sindresorhus/ky): Tiny & elegant JavaScript HTTP client based on the Fetch API. Supports experimental next.js cache.
+- [**useDraggableHook**](https://github.com/rfmiotto/react-use-draggable-scroll): scroll content using mouse events.
