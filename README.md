@@ -234,6 +234,15 @@ I created this repository to put together all utils and helpers that I need from
   ```
 </details>
 
+<details>
+  <summary>Validated actions</summary>
+
+  ---
+  [`validated-actions.tsx`](https://github.com/rcrdk/utils/blob/main/react/validated-actionstsx)
+
+  Validate actions with user session.
+</details>
+
 
 ---
 ### 3️⃣ Shell
@@ -306,7 +315,7 @@ I created this repository to put together all utils and helpers that I need from
   <summary>React 19 + Next.js 15 + ESlint 9</summary>
 
   ---
-  [`react-nextjs-eslint9`](https://github.com/rcrdk/utils/tree/main/linting/react-nextjs-eslint9)
+  [`react19-nextjs15-eslint9`](https://github.com/rcrdk/utils/tree/main/linting/react19-nextjs15-eslint9)
 
   Here is a basic setup with the latest versions of React, Next.js and ESlint.
 </details>
@@ -416,6 +425,30 @@ I created this repository to put together all utils and helpers that I need from
     }
   }
   ```
+</details>
+
+<details>
+  <summary>Knip</summary>
+   
+  ---
+  Copy [`knip.config.ts`](https://github.com/rcrdk/utils/tree/main/linting/knip/knip.config.ts) to the base of the project, customize it.
+
+  **Dependencies:**
+  ```shell
+  npm i -D knip
+  ```
+
+  **Usage:**
+  ```shell
+  npx run knip # And it's time for a cleanup!
+  ```
+</details>
+
+<details>
+  <summary>Commit linting</summary>
+   
+  ---
+  Copy [`commit-lint`](https://github.com/rcrdk/utils/tree/main/linting/commit-lint) to the base of the project, install dependencies and start commiting.
 </details>
 
 
