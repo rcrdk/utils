@@ -1,36 +1,18 @@
 import { redirect } from 'next/navigation'
 import type { z } from 'zod'
 
+import { AUTH_CONFIG } from '@/config/auth'
+import { getSessionUser } from '@/lib/auth/get-session-user'
 import { reportError } from '@/lib/sentry/report-error'
-
-// TODO: Replace with actual user type
-type User = {
-	id: string
-	name: string
-	email: string
-}
+import type { User } from '@/types/auth/user'
 
 type AuthenticatedActionOptions = {
 	disableRedirectOnError?: boolean
 }
 
-// TODO: Replace with actual auth function
-const auth = async () => {
-	return {
-		user: {
-			id: '1',
-			name: 'John Doe',
-			email: 'john.doe@example.com',
-		},
-	}
-}
-
-const REDIRECT_URL = '/login'
-
 const getAuthenticatedUser = async (disableRedirectOnError: boolean): Promise<User | null> => {
-	const session = await auth()
-	const user = session?.user
-	const isUnauthorized = !user?.id
+	const user = await getSessionUser()
+	const isUnauthorized = !user
 
 	if (isUnauthorized && disableRedirectOnError) return null
 	if (isUnauthorized) throw new Error('UNAUTHORIZED')
@@ -41,7 +23,7 @@ const getAuthenticatedUser = async (disableRedirectOnError: boolean): Promise<Us
 const handleUnauthorizedError = (error: unknown, disableRedirectOnError: boolean): boolean => {
 	const isUnauthorizedError = error instanceof Error && error.message === 'UNAUTHORIZED'
 
-	if (isUnauthorizedError && !disableRedirectOnError) redirect(REDIRECT_URL)
+	if (isUnauthorizedError && !disableRedirectOnError) redirect(AUTH_CONFIG.LOGIN_PATH)
 
 	return isUnauthorizedError
 }

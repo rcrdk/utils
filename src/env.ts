@@ -3,6 +3,9 @@ import { z } from 'zod'
 
 export const env = createEnv({
 	server: {
+		AUTH_SECRET: z.string().min(1).optional(),
+		AUTH_GOOGLE_ID: z.string().min(1).optional(),
+		AUTH_GOOGLE_SECRET: z.string().min(1).optional(),
 		CI: z.string().optional(),
 		SENTRY_ORG: z.string().optional(),
 		SENTRY_PROJECT: z.string().optional(),
