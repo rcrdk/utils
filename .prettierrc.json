@@ -20,7 +20,7 @@
     "prettier-plugin-tailwindcss"
   ],
   "tailwindFunctions": ["cn", "cva"],
-  "tailwindAttributes": ["className"],
+  "tailwindAttributes": ["className", "classNameCenter", "containerClassName", "classes"],
   "printWidth": 120,
   "semi": false,
   "singleQuote": true,
