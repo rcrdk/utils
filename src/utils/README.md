@@ -13,37 +13,37 @@ Copy-paste utility snippets organized by domain. Each file exports one or more `
 
 ### `array/`
 
-| File | Export | Description |
-| --- | --- | --- |
-| `group-by.ts` | `groupBy` | Groups a collection by a key into a record of arrays |
+| File                   | Export            | Description                                                  |
+| ---------------------- | ----------------- | ------------------------------------------------------------ |
+| `group-by.ts`          | `groupBy`         | Groups a collection by a key into a record of arrays         |
 | `is-query-included.ts` | `isQueryIncluded` | Accent-insensitive substring match for search/filter queries |
 
 ### `string/`
 
-| File | Export | Description |
-| --- | --- | --- |
+| File               | Export         | Description                              |
+| ------------------ | -------------- | ---------------------------------------- |
 | `generate-slug.ts` | `generateSlug` | Normalizes a string into a URL-safe slug |
 
 ### `ui/`
 
-| File | Export | Description |
-| --- | --- | --- |
-| `tw.ts` | `cn` | Merges Tailwind class names with `clsx` + `tailwind-merge` |
+| File    | Export | Description                                                |
+| ------- | ------ | ---------------------------------------------------------- |
+| `tw.ts` | `cn`   | Merges Tailwind class names with `clsx` + `tailwind-merge` |
 
 ### `action/`
 
-| File | Export | Description |
-| --- | --- | --- |
+| File                   | Export                                      | Description                                                          |
+| ---------------------- | ------------------------------------------- | -------------------------------------------------------------------- |
 | `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Next.js server action wrappers with auth and optional Zod validation |
 
 ## Usage
 
 ```typescript
+import { actionWithUser, validatedActionWithUser } from '@/utils/action/validated-actions'
 import { groupBy } from '@/utils/array/group-by'
 import { isQueryIncluded } from '@/utils/array/is-query-included'
 import { generateSlug } from '@/utils/string/generate-slug'
 import { cn } from '@/utils/ui/tw'
-import { actionWithUser, validatedActionWithUser } from '@/utils/action/validated-actions'
 
 const byStatus = groupBy(tasks, 'status')
 
@@ -57,9 +57,12 @@ const saveTask = validatedActionWithUser(taskSchema, async (data, user) => {
   // data is validated, user is authenticated
 })
 
-const loadProfile = actionWithUser(async (user) => {
-  // user is authenticated
-}, { disableRedirectOnError: true })
+const loadProfile = actionWithUser(
+  async (user) => {
+    // user is authenticated
+  },
+  { disableRedirectOnError: true },
+)
 ```
 
 ## Adding a new util

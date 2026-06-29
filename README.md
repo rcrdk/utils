@@ -20,15 +20,15 @@ Open [http://localhost:3000](http://localhost:3000). Agent symlinks are recreate
 
 ## Scripts
 
-| Command | Description |
-| --- | --- |
-| `pnpm dev` | Start the Next.js dev server |
-| `pnpm build` | Production build |
+| Command          | Description                     |
+| ---------------- | ------------------------------- |
+| `pnpm dev`       | Start the Next.js dev server    |
+| `pnpm build`     | Production build                |
 | `pnpm typecheck` | Run TypeScript (`tsc --noEmit`) |
-| `pnpm lint` | Lint `src/**/*.{ts,tsx}` |
-| `pnpm lint:fix` | Lint with auto-fix |
-| `pnpm test` | Run Vitest in watch mode |
-| `pnpm test:run` | Run Vitest once (CI) |
+| `pnpm lint`      | Lint `src/**/*.{ts,tsx}`        |
+| `pnpm lint:fix`  | Lint with auto-fix              |
+| `pnpm test`      | Run Vitest in watch mode        |
+| `pnpm test:run`  | Run Vitest once (CI)            |
 
 See [README-DX.md](./README-DX.md) for the full tooling reference (Prettier, Husky, commitlint, editor setup).
 
@@ -46,14 +46,14 @@ src/
 
 ## Documentation
 
-| README | Description |
-| --- | --- |
-| [src/utils/README.md](./src/utils/README.md) | Pure helpers organized by domain (`array/`, `string/`, `ui/`, `action/`) — `groupBy`, `generateSlug`, `cn`, server action wrappers, and more |
-| [src/components/README.md](./src/components/README.md) | Shared React components — conventions, index, and usage (e.g. polymorphic `Text` with an `as` prop) |
-| [src/hooks/README.md](./src/hooks/README.md) | Shared React hooks — debounce, clipboard, geolocation, IndexedDB, and conventions for adding new hooks |
-| [README-DX.md](./README-DX.md) | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup |
-| [README-AGENTS.md](./README-AGENTS.md) | AI agent setup — rules, symlinks, and `agents/` directory layout |
-| [AGENTS.md](./AGENTS.md) | Agent guide — project conventions, commands, and Next.js docs index |
+| README                                                 | Description                                                                                                                                  |
+| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| [src/utils/README.md](./src/utils/README.md)           | Pure helpers organized by domain (`array/`, `string/`, `ui/`, `action/`) — `groupBy`, `generateSlug`, `cn`, server action wrappers, and more |
+| [src/components/README.md](./src/components/README.md) | Shared React components — conventions, index, and usage (e.g. polymorphic `Text` with an `as` prop)                                          |
+| [src/hooks/README.md](./src/hooks/README.md)           | Shared React hooks — debounce, clipboard, geolocation, IndexedDB, and conventions for adding new hooks                                       |
+| [README-DX.md](./README-DX.md)                         | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup                                            |
+| [README-AGENTS.md](./README-AGENTS.md)                 | AI agent setup — rules, symlinks, and `agents/` directory layout                                                                             |
+| [AGENTS.md](./AGENTS.md)                               | Agent guide — project conventions, commands, and Next.js docs index                                                                          |
 
 ## Conventions
 

@@ -22,15 +22,15 @@ Quick reference for the tooling in this project — linting, formatting, git hoo
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `pnpm dev` | Start Next.js dev server |
-| `pnpm build` | Production build |
-| `pnpm lint` | Run ESLint on `src/**/*.{ts,tsx}` |
-| `pnpm lint:fix` | ESLint with auto-fix |
-| `pnpm format` | Format all files with Prettier |
-| `pnpm format:check` | Check formatting without writing |
-| `pnpm typecheck` | TypeScript check (`tsc --noEmit`) |
+| Command             | Description                       |
+| ------------------- | --------------------------------- |
+| `pnpm dev`          | Start Next.js dev server          |
+| `pnpm build`        | Production build                  |
+| `pnpm lint`         | Run ESLint on `src/**/*.{ts,tsx}` |
+| `pnpm lint:fix`     | ESLint with auto-fix              |
+| `pnpm format`       | Format all files with Prettier    |
+| `pnpm format:check` | Check formatting without writing  |
+| `pnpm typecheck`    | TypeScript check (`tsc --noEmit`) |
 
 After `pnpm install`, Husky hooks are enabled automatically via the `prepare` script.
 
@@ -40,11 +40,11 @@ After `pnpm install`, Husky hooks are enabled automatically via the `prepare` sc
 
 Git hooks live in [`.husky/`](./.husky/).
 
-| Hook | Runs | Purpose |
-|------|------|---------|
-| **pre-commit** | `pnpm lint-staged` | Lint and format staged files before commit |
-| **commit-msg** | `pnpm commitlint --edit "$1"` | Validate commit message format |
-| **pre-push** | `pnpm typecheck` | Block push if TypeScript has errors |
+| Hook           | Runs                          | Purpose                                    |
+| -------------- | ----------------------------- | ------------------------------------------ |
+| **pre-commit** | `pnpm lint-staged`            | Lint and format staged files before commit |
+| **commit-msg** | `pnpm commitlint --edit "$1"` | Validate commit message format             |
+| **pre-push**   | `pnpm typecheck`              | Block push if TypeScript has errors        |
 
 Husky is installed on every `pnpm install` through:
 
@@ -107,13 +107,13 @@ Config: [`eslint.config.mjs`](./eslint.config.mjs) (ESLint 9 flat config)
 
 ### Notable rules
 
-| Rule | Level | Notes |
-|------|-------|-------|
-| `prettier/prettier` | error | Formatting must match Prettier |
-| `@typescript-eslint/consistent-type-imports` | error | Use `import type { … }` for types |
-| `no-restricted-imports` | error | Blocks deep relative imports (`../../**`) — use `@/` aliases |
-| `import/extensions` | error | No file extensions in imports |
-| `jsx-a11y/*` | warn | Accessibility checks (incl. Next.js `Image` alt text) |
+| Rule                                         | Level | Notes                                                        |
+| -------------------------------------------- | ----- | ------------------------------------------------------------ |
+| `prettier/prettier`                          | error | Formatting must match Prettier                               |
+| `@typescript-eslint/consistent-type-imports` | error | Use `import type { … }` for types                            |
+| `no-restricted-imports`                      | error | Blocks deep relative imports (`../../**`) — use `@/` aliases |
+| `import/extensions`                          | error | No file extensions in imports                                |
+| `jsx-a11y/*`                                 | warn  | Accessibility checks (incl. Next.js `Image` alt text)        |
 
 ### Import aliases
 
@@ -130,20 +130,20 @@ Prettier reads [`.editorconfig`](./.editorconfig) automatically (indent style, E
 
 ### Style
 
-| Option | Value |
-|--------|-------|
-| Quotes | Single |
-| Semicolons | Off |
-| Print width | 120 |
-| Trailing comma | All |
+| Option         | Value  |
+| -------------- | ------ |
+| Quotes         | Single |
+| Semicolons     | Off    |
+| Print width    | 120    |
+| Trailing comma | All    |
 
 ### Plugins
 
-| Plugin | Purpose |
-|--------|---------|
+| Plugin                                | Purpose                                                     |
+| ------------------------------------- | ----------------------------------------------------------- |
 | `@ianvs/prettier-plugin-sort-imports` | Sort imports (React → Next → third-party → `@/` → relative) |
-| `prettier-plugin-tailwindcss` | Sort Tailwind classes; works inside `cn()` and `cva()` |
-| `prettier-plugin-sort-json` | Sort JSON keys |
+| `prettier-plugin-tailwindcss`         | Sort Tailwind classes; works inside `cn()` and `cva()`      |
+| `prettier-plugin-sort-json`           | Sort JSON keys                                              |
 
 ---
 
@@ -151,13 +151,13 @@ Prettier reads [`.editorconfig`](./.editorconfig) automatically (indent style, E
 
 Config: [`tsconfig.json`](./tsconfig.json)
 
-| Setting | Value |
-|---------|-------|
-| Strict mode | On |
-| Module resolution | `bundler` |
-| JSX | `react-jsx` |
-| Path alias | `@/*` → `./src/*` |
-| Emit | Off (`noEmit: true` — Next.js handles compilation) |
+| Setting           | Value                                              |
+| ----------------- | -------------------------------------------------- |
+| Strict mode       | On                                                 |
+| Module resolution | `bundler`                                          |
+| JSX               | `react-jsx`                                        |
+| Path alias        | `@/*` → `./src/*`                                  |
+| Emit              | Off (`noEmit: true` — Next.js handles compilation) |
 
 Run `pnpm typecheck` locally or rely on the **pre-push** hook.
 
@@ -169,11 +169,11 @@ Config: [`.editorconfig`](./.editorconfig)
 
 Shared editor defaults for the team. Install the [EditorConfig extension](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) (listed in `.vscode/extensions.json`).
 
-| Setting | `*` (default) | `*.md` |
-|---------|---------------|--------|
-| Indent | Tab, size 2 | Space, size 2 |
-| End of line | LF | LF |
-| Charset | UTF-8 | UTF-8 |
+| Setting     | `*` (default) | `*.md`        |
+| ----------- | ------------- | ------------- |
+| Indent      | Tab, size 2   | Space, size 2 |
+| End of line | LF            | LF            |
+| Charset     | UTF-8         | UTF-8         |
 
 ---
 
@@ -208,26 +208,26 @@ For AI agent setup (Cursor, Claude), see [README-AGENTS.md](./README-AGENTS.md).
 
 ## Troubleshooting
 
-| Problem | Fix |
-|---------|-----|
-| `Command "lint-staged" not found` | Run `pnpm install` |
-| Commit rejected by commitlint | Use `type: subject` format (see above) |
+| Problem                             | Fix                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------ |
+| `Command "lint-staged" not found`   | Run `pnpm install`                                                       |
+| Commit rejected by commitlint       | Use `type: subject` format (see above)                                   |
 | ESLint errors in editor but not CLI | Restart ESLint server: `Cmd+Shift+P` → **ESLint: Restart ESLint Server** |
-| Prettier vs ESLint conflict | Both share `.prettierrc.json` — run `pnpm lint:fix` |
-| Push blocked by typecheck | Run `pnpm typecheck` and fix reported errors |
-| Deep import error | Replace `../../foo` with `@/foo` |
+| Prettier vs ESLint conflict         | Both share `.prettierrc.json` — run `pnpm lint:fix`                      |
+| Push blocked by typecheck           | Run `pnpm typecheck` and fix reported errors                             |
+| Deep import error                   | Replace `../../foo` with `@/foo`                                         |
 
 ---
 
 ## Config file index
 
-| Tool | File |
-|------|------|
-| ESLint | `eslint.config.mjs` |
-| Prettier | `.prettierrc.json`, `.prettierignore` |
-| TypeScript | `tsconfig.json` |
-| EditorConfig | `.editorconfig` |
-| Commitlint | `commitlint.config.mjs` |
-| lint-staged | `.lintstagedrc.json` |
-| Husky | `.husky/pre-commit`, `.husky/commit-msg`, `.husky/pre-push` |
-| VS Code | `.vscode/settings.json`, `.vscode/extensions.json` |
+| Tool         | File                                                        |
+| ------------ | ----------------------------------------------------------- |
+| ESLint       | `eslint.config.mjs`                                         |
+| Prettier     | `.prettierrc.json`, `.prettierignore`                       |
+| TypeScript   | `tsconfig.json`                                             |
+| EditorConfig | `.editorconfig`                                             |
+| Commitlint   | `commitlint.config.mjs`                                     |
+| lint-staged  | `.lintstagedrc.json`                                        |
+| Husky        | `.husky/pre-commit`, `.husky/commit-msg`, `.husky/pre-push` |
+| VS Code      | `.vscode/settings.json`, `.vscode/extensions.json`          |

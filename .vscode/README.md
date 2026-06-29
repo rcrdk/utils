@@ -4,23 +4,23 @@ Workspace config for TypeScript imports, Tailwind CSS IntelliSense, and recommen
 
 ## Files
 
-| File | Purpose |
-|------|---------|
-| [`settings.json`](./settings.json) | Editor and language-service preferences |
+| File                                   | Purpose                                           |
+| -------------------------------------- | ------------------------------------------------- |
+| [`settings.json`](./settings.json)     | Editor and language-service preferences           |
 | [`extensions.json`](./extensions.json) | Extension recommendations shown on workspace open |
 
 ## Recommended extensions
 
 [`extensions.json`](./extensions.json) prompts teammates to install:
 
-| Extension | ID | Why |
-|-----------|----|-----|
-| [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) | `bradlc.vscode-tailwindcss` | Class autocomplete, linting, and previews |
-| [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) | `dbaeumer.vscode-eslint` | Inline lint diagnostics and auto-fix on save |
-| [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) | `esbenp.prettier-vscode` | Format on save aligned with `.prettierrc` |
-| [EditorConfig](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig) | `editorconfig.editorconfig` | Applies `.editorconfig` indent and EOL rules |
-| [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost) | `wix.vscode-import-cost` | Shows bundle size inline on import statements |
-| [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors) | `yoavbls.pretty-ts-errors` | Readable TypeScript error formatting |
+| Extension                                                                                                  | ID                          | Why                                           |
+| ---------------------------------------------------------------------------------------------------------- | --------------------------- | --------------------------------------------- |
+| [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) | `bradlc.vscode-tailwindcss` | Class autocomplete, linting, and previews     |
+| [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)                       | `dbaeumer.vscode-eslint`    | Inline lint diagnostics and auto-fix on save  |
+| [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)                     | `esbenp.prettier-vscode`    | Format on save aligned with `.prettierrc`     |
+| [EditorConfig](https://marketplace.visualstudio.com/items?itemName=editorconfig.editorconfig)              | `editorconfig.editorconfig` | Applies `.editorconfig` indent and EOL rules  |
+| [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)                  | `wix.vscode-import-cost`    | Shows bundle size inline on import statements |
+| [Pretty TypeScript Errors](https://marketplace.visualstudio.com/items?itemName=yoavbls.pretty-ts-errors)   | `yoavbls.pretty-ts-errors`  | Readable TypeScript error formatting          |
 
 VS Code / Cursor shows an **Install Recommended Extensions** prompt when the workspace is opened. No extra setup beyond accepting that prompt.
 
@@ -53,15 +53,15 @@ Tells Tailwind IntelliSense which JSX/HTML attributes hold class names. Add your
 
 Enables autocomplete inside helper functions that wrap class strings:
 
-| Pattern | Matches |
-|---------|---------|
-| `cva(...)` | [class-variance-authority](https://cva.style/docs) variant definitions |
-| `cn(...)` | [`clsx`](https://github.com/lukeed/clsx) + [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) utilities |
+| Pattern    | Matches                                                                                                            |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| `cva(...)` | [class-variance-authority](https://cva.style/docs) variant definitions                                             |
+| `cn(...)`  | [`clsx`](https://github.com/lukeed/clsx) + [`tailwind-merge`](https://github.com/dcastil/tailwind-merge) utilities |
 
 **Example** — IntelliSense works inside:
 
 ```tsx
-<div className={cn('flex items-center', isActive && 'bg-blue-500')} />
+;<div className={cn('flex items-center', isActive && 'bg-blue-500')} />
 const button = cva('rounded-md', { variants: { size: { sm: 'px-2 py-1' } } })
 ```
 

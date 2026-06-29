@@ -1,29 +1,21 @@
 {
-  "arrowParens": "always",
-  "endOfLine": "auto",
-  "importOrder": [
-    "^(react/(.*)$)|^(react$)",
-    "^(next/(.*)$)|^(next$)",
-    "<THIRD_PARTY_MODULES>",
-    "",
-    "^@/(.*)$",
-    "^[./]"
-  ],
-  "importOrderParserPlugins": [
-    "typescript",
-    "jsx",
-    "decorators-legacy"
-  ],
-  "plugins": [
-    "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-sort-json",
-    "prettier-plugin-tailwindcss"
-  ],
-  "tailwindFunctions": ["cn", "cva"],
-  "tailwindAttributes": ["className", "classNameCenter", "containerClassName", "classes"],
-  "printWidth": 120,
-  "semi": false,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "trailingComma": "all"
+	"arrowParens": "always",
+	"endOfLine": "auto",
+	"importOrder": [
+		"^(react/(.*)$)|^(react$)",
+		"^(next/(.*)$)|^(next$)",
+		"<THIRD_PARTY_MODULES>",
+		"",
+		"^@/(.*)$",
+		"^[./]"
+	],
+	"importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
+	"plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-sort-json", "prettier-plugin-tailwindcss"],
+	"printWidth": 120,
+	"semi": false,
+	"singleQuote": true,
+	"tabWidth": 2,
+	"tailwindAttributes": ["className", "classNameCenter", "containerClassName", "classes"],
+	"tailwindFunctions": ["cn", "cva"],
+	"trailingComma": "all"
 }

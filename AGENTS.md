@@ -132,16 +132,16 @@ import type { Optional } from '@/types/optional'
 ### Good utility
 
 ```typescript
-export const groupBy = <T, K extends string | number | symbol>(
-  array: T[],
-  key: keyof T & K,
-): Record<K, T[]> => {
-  const groups = array.reduce<Record<K, T[]>>((acc, item) => {
-    const groupKey = item[key] as K
-    const existingGroup = acc[groupKey] ?? []
+export const groupBy = <T, K extends string | number | symbol>(array: T[], key: keyof T & K): Record<K, T[]> => {
+  const groups = array.reduce<Record<K, T[]>>(
+    (acc, item) => {
+      const groupKey = item[key] as K
+      const existingGroup = acc[groupKey] ?? []
 
-    return { ...acc, [groupKey]: [...existingGroup, item] }
-  }, {} as Record<K, T[]>)
+      return { ...acc, [groupKey]: [...existingGroup, item] }
+    },
+    {} as Record<K, T[]>,
+  )
 
   return groups
 }

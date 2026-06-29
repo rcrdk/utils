@@ -14,14 +14,14 @@ See [typescript](../../agents/rules/typescript.mdc) for type conventions.
 
 ## Index
 
-| File | Export | Description |
-| --- | --- | --- |
-| `use-copy-to-clipboard.ts` | `useCopyToClipboard` | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag |
-| `use-debounce.ts` | `useDebounce` | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing) |
-| `use-geolocation.ts` | `useGeolocation` | Requests the user's coordinates once via the Geolocation API |
-| `use-indexed-db.ts` | `useIndexedDB` | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb` |
-| `use-local-storage.ts` | `useLocalStorage` | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers |
-| `use-session-storage.ts` | `useSessionStorage` | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
+| File                       | Export               | Description                                                                                      |
+| -------------------------- | -------------------- | ------------------------------------------------------------------------------------------------ |
+| `use-copy-to-clipboard.ts` | `useCopyToClipboard` | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag              |
+| `use-debounce.ts`          | `useDebounce`        | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing)         |
+| `use-geolocation.ts`       | `useGeolocation`     | Requests the user's coordinates once via the Geolocation API                                     |
+| `use-indexed-db.ts`        | `useIndexedDB`       | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb`              |
+| `use-local-storage.ts`     | `useLocalStorage`    | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
+| `use-session-storage.ts`   | `useSessionStorage`  | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
 
 ## Usage
 
@@ -93,19 +93,19 @@ import { z } from 'zod'
 import { useLocalStorage } from '@/hooks/use-local-storage'
 
 const preferencesSchema = z.object({
-	theme: z.enum(['light', 'dark']),
-	compactMode: z.boolean(),
+  theme: z.enum(['light', 'dark']),
+  compactMode: z.boolean(),
 })
 
 const { getLocalValue, saveLocalValue, clearLocalValue } = useLocalStorage({
-	localStorageKey: 'user-preferences',
-	schema: preferencesSchema,
+  localStorageKey: 'user-preferences',
+  schema: preferencesSchema,
 })
 
 const storedPreferences = getLocalValue()
 
 if (storedPreferences) {
-	// storedPreferences is typed and validated
+  // storedPreferences is typed and validated
 }
 
 saveLocalValue({ theme: 'dark', compactMode: false })

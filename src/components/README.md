@@ -14,8 +14,8 @@ See [react-components](../../agents/rules/react-components.mdc) for full rules (
 
 ## Index
 
-| File | Export | Description |
-| --- | --- | --- |
+| File                    | Export | Description                                  |
+| ----------------------- | ------ | -------------------------------------------- |
 | `component-as-prop.tsx` | `Text` | Polymorphic text component with an `as` prop |
 
 ## Usage

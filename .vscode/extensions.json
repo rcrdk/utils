@@ -1,10 +1,10 @@
 {
-  "recommendations": [
-    "bradlc.vscode-tailwindcss",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "editorconfig.editorconfig",
-    "wix.vscode-import-cost",
-    "yoavbls.pretty-ts-errors"
-  ]
+	"recommendations": [
+		"bradlc.vscode-tailwindcss",
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"editorconfig.editorconfig",
+		"wix.vscode-import-cost",
+		"yoavbls.pretty-ts-errors"
+	]
 }
