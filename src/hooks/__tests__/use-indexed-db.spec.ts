@@ -15,7 +15,7 @@ const renderReadyIndexedDB = async () => {
 	return hook
 }
 
-describe('useIndexedDB', () => {
+describe('UseIndexedDB', () => {
 	it('should expose "isDatabaseReady" as false before the database opens', () => {
 		const { result } = renderHook(() => useIndexedDB())
 
