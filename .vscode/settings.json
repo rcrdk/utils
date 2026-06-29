@@ -1,9 +1,6 @@
 {
-	// Force to use import aliases
 	"typescript.preferences.importModuleSpecifier": "non-relative",
-	// Setup Tailwind IntelliSense for custom props
 	"tailwindCSS.classAttributes": ["class", "className", "classNameCenter"],
-	// Setup Tailwind IntelliSense for custom functions
 	"tailwindCSS.experimental.classRegex": [
     ["cva\\(([^)]*)\\)", "'([^']*)'"],
     ["cn\\(([^)]*)\\)", "'([^']*)'"]
