@@ -27,6 +27,8 @@ Open [http://localhost:3000](http://localhost:3000). Agent symlinks are recreate
 | `pnpm typecheck` | Run TypeScript (`tsc --noEmit`) |
 | `pnpm lint` | Lint `src/**/*.{ts,tsx}` |
 | `pnpm lint:fix` | Lint with auto-fix |
+| `pnpm test` | Run Vitest in watch mode |
+| `pnpm test:run` | Run Vitest once (CI) |
 
 See [README-DX.md](./README-DX.md) for the full tooling reference (Prettier, Husky, commitlint, editor setup).
 

@@ -38,6 +38,17 @@ Run `pnpm dev` or `pnpm setup:agent-links` locally after cloning (skipped in CI)
 - [barrel-exports](rules/barrel-exports.mdc) - Named exports in index files
 - [file-naming](rules/file-naming.mdc) - kebab-case file and folder names
 
+### Testing
+
+Prioritize functional tests over implementation tests. See [test-approach](rules/test-approach.mdc).
+
+- [test-approach](rules/test-approach.mdc) - Behavior-first tests, base props/params reuse
+- [test-fixing](rules/test-fixing.mdc) - Prefer fixing tests; confirm before changing production code
+- [test-mocks](rules/test-mocks.mdc) - Shared mocks from `@/mocks/` and `__mocks__`
+- [test-naming-and-structure](rules/test-naming-and-structure.mdc) - Describe/it naming, quoted refs (props, brands, constants)
+- [test-organization](rules/test-organization.mdc) - `it.each`, snapshots, class testing
+- [test-element-selection](rules/test-element-selection.mdc) - Querying elements in tests
+
 ### Meta
 
 - [cursor-rules](rules/cursor-rules.mdc) - How to create and maintain Cursor rules

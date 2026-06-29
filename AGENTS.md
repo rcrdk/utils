@@ -39,6 +39,14 @@ You are a senior engineer working on rcrdk/utils, a personal utilities collectio
 - Never skip hooks (`--no-verify`) unless explicitly requested
 - Never use default exports for React components
 
+## Testing
+
+- Prioritize functional tests (observable behavior) over implementation details
+- Use `it.each` for similar test cases
+- Reuse shared mocks from `@/mocks/` and `__mocks__` when available
+- Extract `defaultProps`, `baseProps`, or `defaultOptions` when tests share common inputs
+- When fixing failing tests, prefer updating the test; ask before changing production behavior
+
 ## Commands
 
 See [agents/commands.md](agents/commands.md) for the full reference. Key commands:
@@ -46,6 +54,7 @@ See [agents/commands.md](agents/commands.md) for the full reference. Key command
 ```bash
 pnpm typecheck   # Type check
 pnpm lint:fix    # Lint and fix
+pnpm test        # Unit tests
 pnpm dev         # Dev server
 ```
 
@@ -54,6 +63,7 @@ pnpm dev         # Dev server
 ### Always do
 
 - Run typecheck on changed files before committing
+- Run relevant tests before pushing
 - Follow commit format: `type(scope): subject` (see [agents/rules/commit-messages.mdc](agents/rules/commit-messages.mdc))
 - Match existing naming and file structure conventions
 
@@ -98,6 +108,7 @@ src/
 - **Styles**: `src/styles/` for global CSS and design tokens — import from `@/styles/...` in layouts
 - **App folder**: pages, layout, and route-local UI only
 - **File names**: kebab-case
+- **Tests**: `__tests__/` folders with `.spec.ts(x)` files
 - **Named values**: assign function results and complex conditions to `const` before returning or branching (see [constants-and-variables](agents/rules/constants-and-variables.mdc))
 
 ## Tech Stack
@@ -106,6 +117,7 @@ src/
 - **Language**: TypeScript (strict)
 - **Styling**: Tailwind CSS v4
 - **Package manager**: pnpm
+- **Testing**: Vitest + Testing Library
 
 ## Code Examples
 
@@ -153,6 +165,7 @@ export function Button({ label, onPress }: Readonly<ButtonProps>) {
 - [ ] Commit includes scoped subject (when applicable) and valid type
 - [ ] Typecheck passes: `pnpm typecheck`
 - [ ] Lint passes: `pnpm lint`
+- [ ] Relevant tests pass: `pnpm test:run`
 - [ ] Diff is small and focused
 - [ ] No secrets committed
 

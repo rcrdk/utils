@@ -16,6 +16,9 @@ pnpm lint         # ESLint on src/**/*.ts(x)
 pnpm lint:fix     # ESLint with auto-fix
 pnpm format       # Prettier write
 pnpm format:check # Prettier check
+pnpm test         # Vitest (watch mode)
+pnpm test:run     # Vitest single run (CI)
+pnpm test:watch   # Vitest watch mode (alias)
 ```
 
 ## Agents
