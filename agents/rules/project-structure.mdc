@@ -1,0 +1,69 @@
+---
+description: Where reusable code and Next.js app code live under src/
+alwaysApply: true
+---
+
+# Project Structure
+
+Keep `src/app/` focused on routing, pages, and UI. Put reusable code in the appropriate `src/` subfolder.
+
+## `src/` — domain folders
+
+| Kind | Location |
+| --- | ---- |
+| Pure helpers, formatters, mappers | `src/utils/` |
+| React hooks | `src/hooks/` |
+| Shared TypeScript types | `src/types/` |
+| Shared React components | `src/components/` |
+| Third-party wrappers, integrations | `src/lib/` |
+| App configuration | `src/config/` |
+| Shared constants | `src/constants/` |
+| Validation schemas | `src/schemas/` |
+| React contexts | `src/contexts/` |
+| State reducers | `src/reducers/` |
+| HTTP clients, API helpers | `src/http/` |
+| Global styles, design tokens | `src/styles/` |
+
+- ✅ Good:
+
+  ```
+  src/utils/group-by.ts
+  src/hooks/use-form-state/use-form-state.ts
+  src/types/optional.ts
+  src/styles/globals.css
+  ```
+
+- ❌ Bad:
+
+  ```
+  src/app/group-by.ts
+  src/app/use-form-state.ts
+  src/app/globals.css
+  ```
+
+## `src/app/` — Next.js app shell only
+
+The App Router folder is for:
+
+- **Pages**: `page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`
+- **Route-local components**: colocated UI under feature folders
+- **Framework entry points**: `app/api/`
+
+Do **not** add standalone utility modules or global styles in `src/app/`.
+
+## `src/` layout
+
+```
+src/
+├── app/                # App Router — pages, route UI
+│   ├── page.tsx
+│   └── layout.tsx
+├── styles/
+│   └── globals.css
+├── utils/
+├── hooks/
+├── types/
+└── ...
+```
+
+When logic is reused outside one route, move it to the matching `src/<domain>/` folder.

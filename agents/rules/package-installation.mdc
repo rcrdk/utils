@@ -1,0 +1,40 @@
+---
+description: Ask before adding, removing, or upgrading npm packages
+alwaysApply: true
+---
+
+# Package Installation
+
+Do not install, upgrade, or remove dependencies without explicit user approval.
+
+## Ask first
+
+Before running any package manager command that changes `package.json` or the lockfile, stop and ask the user. This includes:
+
+- `pnpm add`, `pnpm add -D`, `pnpm add -E`
+- `pnpm remove`
+- `pnpm update`
+- `yarn add`, `yarn remove`, `yarn upgrade`
+- `npm install <package>`, `npm uninstall`, `npm update`
+
+## When proposing a dependency
+
+Explain briefly:
+
+1. **Why** the package is needed (what problem it solves)
+2. **Alternatives** considered (built-in APIs, existing project utilities, or a smaller dependency)
+3. **Exact command** you would run if approved (prefer `pnpm add -E <package>` to pin versions)
+
+Wait for approval before running the command.
+
+## Without approval, you may
+
+- Use packages already listed in `package.json`
+- Read `package.json` and the lockfile to check what is installed
+- Suggest a dependency in your response without installing it
+
+## After approval
+
+- Pin exact versions: `pnpm add -E <package>` (or `pnpm add -E -D <package>` for dev dependencies)
+- Install only what was approved — do not add related or transitive packages the user did not agree to
+- Mention any peer dependency or setup steps the package requires

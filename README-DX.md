@@ -88,7 +88,7 @@ Enforces [Conventional Commits](https://www.conventionalcommits.org/) via `@comm
 ```bash
 git commit -m "feat: add user profile page"
 git commit -m "fix: handle empty form submission"
-git commit -m "docs: update DX guide"
+git commit -m "docs: update README-DX"
 git commit -m "chore: bump dependencies"
 ```
 
@@ -197,10 +197,12 @@ See [`.vscode/README.md`](./.vscode/README.md) for full details.
 ## First-time setup
 
 ```bash
-pnpm install          # installs deps + enables Husky hooks
+pnpm install   # installs deps + enables Husky hooks
 ```
 
 Open the project in VS Code / Cursor and accept **Install Recommended Extensions** when prompted.
+
+For AI agent setup (Cursor, Claude), see [README-AGENTS.md](./README-AGENTS.md).
 
 ---
 

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "pnpm setup:agent-links",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -11,7 +12,8 @@
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "prepare": "husky",
+    "setup:agent-links": "node scripts/setup-agent-links.mjs"
   },
   "dependencies": {
     "next": "16.2.9",
