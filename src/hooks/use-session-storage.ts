@@ -1,6 +1,8 @@
 import { useCallback } from 'react'
 import type { z } from 'zod'
 
+import { reportError } from '@/lib/sentry/report-error'
+
 type SessionStorageOperation = 'get' | 'save' | 'clear'
 
 type ReportSessionStorageErrorParams = {
@@ -9,9 +11,15 @@ type ReportSessionStorageErrorParams = {
 	sessionStorageKey: string
 }
 
-// TODO: Implement error reporting
-const reportError = ({ error, operation, sessionStorageKey }: ReportSessionStorageErrorParams) => {
-	console.error(`Session storage ${operation} failed for key "${sessionStorageKey}":`, error)
+const reportSessionStorageError = ({ error, operation, sessionStorageKey }: ReportSessionStorageErrorParams) => {
+	reportError({
+		error,
+		message: `Session storage ${operation} failed for key "${sessionStorageKey}":`,
+		context: {
+			tags: { operation, storageType: 'session' },
+			extra: { sessionStorageKey },
+		},
+	})
 }
 
 const isSessionStorageAvailable = () => typeof window !== 'undefined'
@@ -38,7 +46,7 @@ const getStoredValueFromSessionStorage = <T>({
 
 		return validationResult.data
 	} catch (error) {
-		reportError({ error, operation: 'get', sessionStorageKey })
+		reportSessionStorageError({ error, operation: 'get', sessionStorageKey })
 		return null
 	}
 }
@@ -54,7 +62,7 @@ const saveValueToSessionStorage = <T>({ sessionStorageKey, value }: SaveValueToS
 	try {
 		window.sessionStorage.setItem(sessionStorageKey, JSON.stringify(value))
 	} catch (error) {
-		reportError({ error, operation: 'save', sessionStorageKey })
+		reportSessionStorageError({ error, operation: 'save', sessionStorageKey })
 	}
 }
 
@@ -68,7 +76,7 @@ const clearValueFromSessionStorage = ({ sessionStorageKey }: ClearValueFromSessi
 	try {
 		window.sessionStorage.removeItem(sessionStorageKey)
 	} catch (error) {
-		reportError({ error, operation: 'clear', sessionStorageKey })
+		reportSessionStorageError({ error, operation: 'clear', sessionStorageKey })
 	}
 }
 

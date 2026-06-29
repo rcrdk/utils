@@ -1,11 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-const COPIED_MESSAGE_TIMEOUT = 2000
+import { reportError } from '@/lib/sentry/report-error'
 
-// TODO: Add error reporting to a bug tracking system
-const reportError = (error: unknown) => {
-	console.error('Failed to copy text:', error)
-}
+const COPIED_MESSAGE_TIMEOUT = 2000
 
 export const useCopyToClipboard = () => {
 	const [copiedToClipboard, setCopiedToClipboard] = useState(false)
@@ -25,7 +22,7 @@ export const useCopyToClipboard = () => {
 				copiedTimeoutRef.current = null
 			}, COPIED_MESSAGE_TIMEOUT)
 		} catch (error) {
-			reportError(error)
+			reportError({ error, message: 'Failed to copy text to clipboard' })
 		}
 	}, [])
 

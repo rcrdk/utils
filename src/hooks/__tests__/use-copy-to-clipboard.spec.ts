@@ -91,7 +91,7 @@ describe('UseCopyToClipboard', () => {
 
 		await copyText(result, COPY_TEXT)
 
-		expect(consoleError).toHaveBeenCalledWith('Failed to copy text:', copyError)
+		expect(consoleError).toHaveBeenCalledWith('Failed to copy text to clipboard', copyError)
 		expect(result.current.copiedToClipboard).toBe(false)
 	})
 })

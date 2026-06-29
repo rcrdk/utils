@@ -1,6 +1,8 @@
 import { redirect } from 'next/navigation'
 import type { z } from 'zod'
 
+import { reportError } from '@/lib/sentry/report-error'
+
 // TODO: Replace with actual user type
 type User = {
 	id: string
@@ -20,15 +22,6 @@ const auth = async () => {
 			name: 'John Doe',
 			email: 'john.doe@example.com',
 		},
-	}
-}
-
-// TODO: Replace with actual error reporting function
-const reportError = (error: Error | unknown) => {
-	if (error instanceof Error) {
-		console.error(error.message)
-	} else {
-		console.error(error)
 	}
 }
 
@@ -78,7 +71,7 @@ export const validatedActionWithUser =
 			const isUnauthorizedError = handleUnauthorizedError(error, disableRedirectOnError)
 			if (isUnauthorizedError) return null
 
-			reportError(error)
+			reportError({ error })
 
 			return null
 		}
@@ -98,7 +91,7 @@ export const actionWithUser =
 			const isUnauthorizedError = handleUnauthorizedError(error, disableRedirectOnError)
 			if (isUnauthorizedError) return null
 
-			reportError(error)
+			reportError({ error })
 
 			return null
 		}

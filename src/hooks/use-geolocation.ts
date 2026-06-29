@@ -1,13 +1,10 @@
 import { useCallback, useRef, useState } from 'react'
 
+import { reportError } from '@/lib/sentry/report-error'
+
 type Coordinates = {
 	lat: string
 	lng: string
-}
-
-// TODO: Add error reporting to a bug tracking system
-const reportError = (error: unknown) => {
-	console.error('Failed to retrieve location:', error)
 }
 
 export const useGeolocation = () => {
@@ -19,7 +16,7 @@ export const useGeolocation = () => {
 		const isSupported = typeof window !== 'undefined' && 'geolocation' in navigator
 
 		if (!isSupported) {
-			reportError('Geolocation is not supported')
+			reportError({ error: 'Geolocation is not supported', message: 'Failed to retrieve location' })
 			return
 		}
 
@@ -35,7 +32,10 @@ export const useGeolocation = () => {
 				setIsRequestingLocation(false)
 			},
 			(geoError) => {
-				reportError(geoError?.message ?? 'Failed to retrieve location')
+				reportError({
+					error: geoError?.message ?? 'Failed to retrieve location',
+					message: 'Failed to retrieve location',
+				})
 				setIsRequestingLocation(false)
 			},
 		)

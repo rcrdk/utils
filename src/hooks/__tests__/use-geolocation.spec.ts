@@ -105,6 +105,6 @@ describe('UseGeolocation', () => {
 		requestLocation(result)
 
 		expect(getCurrentPosition).not.toHaveBeenCalled()
-		expect(consoleError).toHaveBeenCalledWith('Failed to retrieve location:', 'Geolocation is not supported')
+		expect(consoleError).toHaveBeenCalledWith('Failed to retrieve location', 'Geolocation is not supported')
 	})
 })

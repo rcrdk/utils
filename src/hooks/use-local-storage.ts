@@ -1,6 +1,8 @@
 import { useCallback } from 'react'
 import type { z } from 'zod'
 
+import { reportError } from '@/lib/sentry/report-error'
+
 type LocalStorageOperation = 'get' | 'save' | 'clear'
 
 type ReportLocalStorageErrorParams = {
@@ -9,9 +11,15 @@ type ReportLocalStorageErrorParams = {
 	localStorageKey: string
 }
 
-// TODO: Implement error reporting
-const reportError = ({ error, operation, localStorageKey }: ReportLocalStorageErrorParams) => {
-	console.error(`Local storage ${operation} failed for key "${localStorageKey}":`, error)
+const reportLocalStorageError = ({ error, operation, localStorageKey }: ReportLocalStorageErrorParams) => {
+	reportError({
+		error,
+		message: `Local storage ${operation} failed for key "${localStorageKey}":`,
+		context: {
+			tags: { operation, storageType: 'local' },
+			extra: { localStorageKey },
+		},
+	})
 }
 
 const isLocalStorageAvailable = () => typeof window !== 'undefined'
@@ -35,7 +43,7 @@ const getStoredValueFromLocalStorage = <T>({ localStorageKey, schema }: GetStore
 
 		return validationResult.data
 	} catch (error) {
-		reportError({ error, operation: 'get', localStorageKey })
+		reportLocalStorageError({ error, operation: 'get', localStorageKey })
 		return null
 	}
 }
@@ -51,7 +59,7 @@ const saveValueToLocalStorage = <T>({ localStorageKey, value }: SaveValueToLocal
 	try {
 		window.localStorage.setItem(localStorageKey, JSON.stringify(value))
 	} catch (error) {
-		reportError({ error, operation: 'save', localStorageKey })
+		reportLocalStorageError({ error, operation: 'save', localStorageKey })
 	}
 }
 
@@ -65,7 +73,7 @@ const clearValueFromLocalStorage = ({ localStorageKey }: ClearValueFromLocalStor
 	try {
 		window.localStorage.removeItem(localStorageKey)
 	} catch (error) {
-		reportError({ error, operation: 'clear', localStorageKey })
+		reportLocalStorageError({ error, operation: 'clear', localStorageKey })
 	}
 }
 

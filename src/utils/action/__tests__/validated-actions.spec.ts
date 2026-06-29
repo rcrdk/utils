@@ -1,11 +1,12 @@
-import { redirect } from 'next/navigation'
-import { describe, expect, it, vi } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { z } from 'zod'
 
 import { actionWithUser, validatedActionWithUser } from '@/utils/action/validated-actions'
 
+const redirect = vi.hoisted(() => vi.fn())
+
 vi.mock('next/navigation', () => ({
-	redirect: vi.fn(),
+	redirect,
 }))
 
 const taskSchema = z.object({
@@ -13,6 +14,10 @@ const taskSchema = z.object({
 })
 
 describe('ValidatedActionWithUser', () => {
+	beforeEach(() => {
+		redirect.mockClear()
+	})
+
 	it('should return the action result when input is valid', async () => {
 		const saveTask = validatedActionWithUser(taskSchema, async (data, user) => ({
 			title: data.title,
@@ -62,6 +67,10 @@ describe('ValidatedActionWithUser', () => {
 })
 
 describe('ActionWithUser', () => {
+	beforeEach(() => {
+		redirect.mockClear()
+	})
+
 	it('should return the action result for an authenticated user', async () => {
 		const loadProfile = actionWithUser(async (user) => user.email)
 

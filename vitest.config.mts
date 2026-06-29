@@ -4,6 +4,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
 	plugins: [react()],
 	resolve: {
+		dedupe: ['vitest'],
 		tsconfigPaths: true,
 	},
 	test: {
@@ -11,5 +12,10 @@ export default defineConfig({
 		setupFiles: ['./vitest.setup.ts'],
 		include: ['src/**/__tests__/**/*.{spec,test}.{ts,tsx}'],
 		passWithNoTests: true,
+		server: {
+			deps: {
+				inline: ['vitest'],
+			},
+		},
 	},
 })

@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { INDEXED_DB_CONFIG, type IndexedDBStoresNames } from '@/config/indexeddb'
-
-// TODO: Add error reporting to a bug tracking system
-const reportError = (error: unknown) => {
-	console.error('Failed to open database:', error)
-}
+import { reportError } from '@/lib/sentry/report-error'
 
 const wrapRequest = <T>(request: IDBRequest<T>): Promise<T> =>
 	new Promise((resolve, reject) => {
@@ -51,7 +47,7 @@ export const useIndexedDB = () => {
 				dbRef.current = db
 				setIsStorageReady(true)
 			} catch (error) {
-				reportError(error)
+				reportError({ error, message: 'Failed to open IndexedDB database' })
 				setIsStorageReady(false)
 			} finally {
 				initializationRef.current = null
