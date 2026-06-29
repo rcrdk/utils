@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# rcrdk/utils
 
-## Getting Started
+Personal utilities collection with a [Next.js 16](https://nextjs.org) app shell for local development and demos. Reusable code lives under `src/`; routing and route-local UI stay in `src/app/`.
 
-First, run the development server:
+## Tech stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript (strict)
+- **Styling**: Tailwind CSS v4
+- **Package manager**: pnpm
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000). Agent symlinks are recreated automatically on `pnpm dev` (see [README-AGENTS.md](./README-AGENTS.md)).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Start the Next.js dev server |
+| `pnpm build` | Production build |
+| `pnpm typecheck` | Run TypeScript (`tsc --noEmit`) |
+| `pnpm lint` | Lint `src/**/*.{ts,tsx}` |
+| `pnpm lint:fix` | Lint with auto-fix |
 
-## Learn More
+See [README-DX.md](./README-DX.md) for the full tooling reference (Prettier, Husky, commitlint, editor setup).
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/          # Next.js App Router — pages, layout, route-local UI
+├── components/   # Shared React components
+├── hooks/        # Shared React hooks
+├── utils/        # Pure utility functions
+├── config/       # App configuration
+└── styles/       # Global CSS and design tokens
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentation
 
-## Deploy on Vercel
+| README | Description |
+| --- | --- |
+| [src/utils/README.md](./src/utils/README.md) | Pure helpers organized by domain (`array/`, `string/`, `ui/`, `action/`) — `groupBy`, `generateSlug`, `cn`, server action wrappers, and more |
+| [src/components/README.md](./src/components/README.md) | Shared React components — conventions, index, and usage (e.g. polymorphic `Text` with an `as` prop) |
+| [src/hooks/README.md](./src/hooks/README.md) | Shared React hooks — debounce, clipboard, geolocation, IndexedDB, and conventions for adding new hooks |
+| [README-DX.md](./README-DX.md) | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup |
+| [README-AGENTS.md](./README-AGENTS.md) | AI agent setup — rules, symlinks, and `agents/` directory layout |
+| [AGENTS.md](./AGENTS.md) | Agent guide — project conventions, commands, and Next.js docs index |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Conventions
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **File names**: kebab-case
+- **Exports**: named only — no default exports
+- **Imports**: `@/` alias for paths under `src/`
+- **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): subject`)
+
+Coding rules live in [agents/rules/](./agents/rules/). After cloning, run `pnpm setup:agent-links` or `pnpm dev` to wire them into Cursor and Claude Code locally.
