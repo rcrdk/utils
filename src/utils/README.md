@@ -32,9 +32,11 @@ Copy-paste utility snippets organized by domain. Each file exports one or more `
 
 ### `action/`
 
-| File                   | Export                                      | Description                                                          |
-| ---------------------- | ------------------------------------------- | -------------------------------------------------------------------- |
-| `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Next.js server action wrappers with auth and optional Zod validation |
+| File                   | Export                                      | Description                                                                                               |
+| ---------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Server action wrappers with Auth.js session checks, optional Zod validation, and unauthorized redirect      |
+
+Requires auth setup in `@/lib/auth`. Unauthenticated calls redirect to `AUTH_CONFIG.LOGIN_PATH` unless `disableRedirectOnError` is set.
 
 ## Usage
 
@@ -52,17 +54,30 @@ const matches = isQueryIncluded('sao', 'São Paulo')
 const slug = generateSlug('Hello World') // 'hello-world'
 
 const className = cn('px-4', isActive && 'bg-blue-500', className)
+```
+
+### `validatedActionWithUser` / `actionWithUser` — authenticated server actions
+
+Uses `getSessionUser` from `@/lib/auth`. The `user` argument is typed as `User` from `@/types/auth/user`.
+
+```typescript
+import { z } from 'zod'
+
+import { actionWithUser, validatedActionWithUser } from '@/utils/action/validated-actions'
+
+const taskSchema = z.object({ title: z.string() })
 
 const saveTask = validatedActionWithUser(taskSchema, async (data, user) => {
   // data is validated, user is authenticated
+  return { title: data.title, userId: user.id }
 })
 
-const loadProfile = actionWithUser(
-  async (user) => {
-    // user is authenticated
-  },
-  { disableRedirectOnError: true },
-)
+const loadProfile = actionWithUser(async (user) => user.email)
+
+// return null instead of redirecting when unauthenticated
+const loadProfileSilently = actionWithUser(async (user) => user.email, {
+  disableRedirectOnError: true,
+})
 ```
 
 ## Adding a new util

@@ -38,9 +38,11 @@ See [README-DX.md](./README-DX.md) for the full tooling reference (Prettier, Hus
 src/
 ├── app/          # Next.js App Router — pages, layout, route-local UI
 ├── components/   # Shared React components
+├── config/       # App configuration (auth routes, IndexedDB)
 ├── hooks/        # Shared React hooks
+├── lib/          # Third-party wrappers (auth, Sentry)
+├── types/        # Shared TypeScript types
 ├── utils/        # Pure utility functions
-├── config/       # App configuration
 └── styles/       # Global CSS and design tokens
 ```
 
@@ -48,9 +50,13 @@ src/
 
 | README                                                 | Description                                                                                                                                  |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| [src/utils/README.md](./src/utils/README.md)           | Pure helpers organized by domain (`array/`, `string/`, `ui/`, `action/`) — `groupBy`, `generateSlug`, `cn`, server action wrappers, and more |
+| [src/utils/README.md](./src/utils/README.md)           | Pure helpers by domain — `groupBy`, `generateSlug`, `cn`, authenticated server action wrappers                                               |
 | [src/components/README.md](./src/components/README.md) | Shared React components — conventions, index, and usage (e.g. polymorphic `Text` with an `as` prop)                                          |
-| [src/hooks/README.md](./src/hooks/README.md)           | Shared React hooks — debounce, clipboard, geolocation, IndexedDB, and conventions for adding new hooks                                       |
+| [src/hooks/README.md](./src/hooks/README.md)           | Shared React hooks — debounce, storage, observers, geolocation, IndexedDB, and more                                                            |
+| [src/lib/README.md](./src/lib/README.md)               | Third-party integrations — Auth.js and Sentry wrappers                                                                                       |
+| [src/lib/auth/README.md](./src/lib/auth/README.md)     | Google OAuth setup, session helpers, and protected action integration                                                                        |
+| [src/lib/sentry/README.md](./src/lib/sentry/README.md) | Error reporting and Sentry SDK configuration                                                                                                 |
+| [src/config/README.md](./src/config/README.md)         | Shared constants — auth route paths and IndexedDB store config                                                                               |
 | [README-DX.md](./README-DX.md)                         | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup                                            |
 | [README-AGENTS.md](./README-AGENTS.md)                 | AI agent setup — rules, symlinks, and `agents/` directory layout                                                                             |
 | [AGENTS.md](./AGENTS.md)                               | Agent guide — project conventions, commands, and Next.js docs index                                                                          |
