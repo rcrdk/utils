@@ -14,14 +14,16 @@ See [typescript](../../agents/rules/typescript.mdc) for type conventions.
 
 ## Index
 
-| File                       | Export               | Description                                                                                      |
-| -------------------------- | -------------------- | ------------------------------------------------------------------------------------------------ |
-| `use-copy-to-clipboard.ts` | `useCopyToClipboard` | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag              |
-| `use-debounce.ts`          | `useDebounce`        | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing)         |
-| `use-geolocation.ts`       | `useGeolocation`     | Requests the user's coordinates once via the Geolocation API                                     |
-| `use-indexed-db.ts`        | `useIndexedDB`       | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb`              |
-| `use-local-storage.ts`     | `useLocalStorage`    | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
-| `use-session-storage.ts`   | `useSessionStorage`  | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
+| File                            | Export                    | Description                                                                                      |
+| ------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `use-copy-to-clipboard.ts`      | `useCopyToClipboard`      | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag              |
+| `use-debounce.ts`               | `useDebounce`             | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing)         |
+| `use-geolocation.ts`            | `useGeolocation`          | Requests the user's coordinates once via the Geolocation API                                     |
+| `use-indexed-db.ts`             | `useIndexedDB`            | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb`              |
+| `use-intersection-observer.ts`  | `useIntersectionObserver` | Observes when a ref'd element enters or leaves the viewport (or a custom root)                   |
+| `use-local-storage.ts`          | `useLocalStorage`         | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
+| `use-resize-observer.ts`        | `useResizeObserver`       | Observes size changes on a ref'd element and exposes `width` and `height` from `contentRect`     |
+| `use-session-storage.ts`        | `useSessionStorage`       | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
 
 ## Usage
 
@@ -82,6 +84,52 @@ useEffect(() => {
 ```
 
 Available methods on `db`: `add`, `put`, `upsert`, `getItem`, `getAll`, `deleteItem`, `deleteMany`.
+
+### `useIntersectionObserver` — viewport visibility
+
+Attach a ref to the element you want to observe. Pass `enabled: false` to pause observation.
+
+```tsx
+import { useRef } from 'react'
+
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
+
+const ref = useRef<HTMLDivElement>(null)
+const { isIntersecting, entry } = useIntersectionObserver({
+  ref,
+  threshold: 0.5,
+  rootMargin: '100px',
+})
+
+return (
+  <div ref={ref}>
+    {isIntersecting ? 'Visible' : 'Hidden'}
+  </div>
+)
+```
+
+Returns `{ entry, isIntersecting }`. Supports `root`, `rootMargin`, `threshold`, and `enabled`.
+
+### `useResizeObserver` — element size changes
+
+Attach a ref to the element you want to measure. Pass `enabled: false` to pause observation.
+
+```tsx
+import { useRef } from 'react'
+
+import { useResizeObserver } from '@/hooks/use-resize-observer'
+
+const ref = useRef<HTMLDivElement>(null)
+const { width, height } = useResizeObserver({ ref, box: 'border-box' })
+
+return (
+  <div ref={ref}>
+    {width !== null && height !== null && `${width}×${height}`}
+  </div>
+)
+```
+
+Returns `{ entry, width, height }`. Supports `box` and `enabled`.
 
 ### `useLocalStorage` — typed local persistence
 
