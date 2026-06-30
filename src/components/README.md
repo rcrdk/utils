@@ -17,6 +17,7 @@ See [react-components](../../agents/rules/react-components.mdc) for full rules (
 | File                              | Export                 | Description                                  |
 | --------------------------------- | ---------------------- | -------------------------------------------- |
 | `examples/polymorphic-component.tsx` | `PolymorphicComponent` | Polymorphic component with an `as` prop      |
+| `examples/audio-recorder/`        | `AudioRecorder`        | Microphone recorder with transcription wiring |
 | `providers/tanstack-query.tsx`    | `TanstackQueryProvider`| TanStack Query client with IndexedDB restore |
 
 ## Usage
@@ -48,6 +49,21 @@ import { TanstackQueryProvider } from '@/components/providers/tanstack-query'
 ```
 
 Returns `null` until the IndexedDB cache restore completes (unless `SKIP_CACHE_RESTORE=true`).
+
+### `AudioRecorder` — record and transcribe audio
+
+See [`examples/audio-recorder/README.md`](examples/audio-recorder/README.md) for full API, behavior, and tests.
+
+```tsx
+import { transcribeAudioAction } from '@/app/_actions/transcribe'
+import { AudioRecorder } from '@/components/examples/audio-recorder'
+
+<AudioRecorder
+  transcribeAction={transcribeAudioAction}
+  onTranscription={(text) => setMessage(text)}
+  onError={(error) => toast.error(error)}
+/>
+```
 
 ## Adding a new component
 
