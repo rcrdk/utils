@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { Text } from '@/components/ui/component-as-prop'
+import { PolymorphicComponent } from '@/components/examples/polymorphic-component'
 
-describe('Text component', () => {
+describe('PolymorphicComponent component', () => {
 	it('should render as a paragraph by default', () => {
-		render(<Text>Hello world</Text>)
+		render(<PolymorphicComponent>Hello world</PolymorphicComponent>)
 
 		const text = screen.getByText('Hello world')
 
@@ -16,7 +16,7 @@ describe('Text component', () => {
 		['span', 'Inline label', 'SPAN'],
 		['h1', 'Page heading', 'H1'],
 	] as const)('should render as "%s" when "as" is "%s"', (element, content, tagName) => {
-		render(<Text as={element}>{content}</Text>)
+		render(<PolymorphicComponent as={element}>{content}</PolymorphicComponent>)
 
 		const text = screen.getByText(content)
 
@@ -25,9 +25,9 @@ describe('Text component', () => {
 
 	it('should forward props to the rendered element', () => {
 		render(
-			<Text as="h1" id="page-title">
+			<PolymorphicComponent as="h1" id="page-title">
 				Page heading
-			</Text>,
+			</PolymorphicComponent>,
 		)
 
 		const heading = screen.getByRole('heading', { level: 1, name: 'Page heading' })
@@ -40,7 +40,13 @@ describe('Text component', () => {
 		['span', 'span', 'Span snapshot'],
 		['heading', 'h1', 'Heading snapshot'],
 	] as const)('should match snapshot for %s', (_label, element, content) => {
-		const { container } = render(element ? <Text as={element}>{content}</Text> : <Text>{content}</Text>)
+		const { container } = render(
+			element ? (
+				<PolymorphicComponent as={element}>{content}</PolymorphicComponent>
+			) : (
+				<PolymorphicComponent>{content}</PolymorphicComponent>
+			),
+		)
 
 		expect(container).toMatchSnapshot()
 	})
