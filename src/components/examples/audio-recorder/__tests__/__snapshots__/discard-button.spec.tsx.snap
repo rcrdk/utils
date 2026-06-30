@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DiscardButton component > should match snapshot when "isRecording" is hidden 1`] = `<div />`;
+
+exports[`DiscardButton component > should match snapshot when "isRecording" is recording 1`] = `
+<div>
+  <button
+    aria-label="Cancelar gravação"
+    class=""
+    type="button"
+  >
+    🗑️
+  </button>
+</div>
+`;

@@ -1,0 +1,37 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AudioRecorderButtonIcons component > should match snapshot for record state 1`] = `
+<div>
+  <span
+    aria-hidden="true"
+    class=""
+    data-testid="audio-recorder-button-icon-record"
+  >
+    🎤
+  </span>
+</div>
+`;
+
+exports[`AudioRecorderButtonIcons component > should match snapshot for recording state 1`] = `
+<div>
+  <span
+    aria-hidden="true"
+    class=""
+    data-testid="audio-recorder-button-icon-recording"
+  >
+    ⏹
+  </span>
+</div>
+`;
+
+exports[`AudioRecorderButtonIcons component > should match snapshot for transcribing state 1`] = `
+<div>
+  <span
+    aria-hidden="true"
+    class=""
+    data-testid="audio-recorder-button-icon-transcribing"
+  >
+    🔄
+  </span>
+</div>
+`;

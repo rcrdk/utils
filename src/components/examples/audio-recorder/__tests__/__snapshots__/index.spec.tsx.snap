@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AudioRecorder component > should match snapshot 1`] = `
+<div>
+  <div
+    class=""
+    data-testid="audio-recorder"
+  >
+    <button
+      aria-label="Gravar áudio"
+      class=""
+      data-testid="audio-recorder-button"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class=""
+        data-testid="audio-recorder-button-icon-record"
+      >
+        🎤
+      </span>
+    </button>
+  </div>
+</div>
+`;
