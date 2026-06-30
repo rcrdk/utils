@@ -7,11 +7,11 @@ import '@/styles/globals.css'
 
 import { HTML_CONFIG } from '@/config/html'
 
-interface GlobalErrorProps {
+interface Props {
 	error: Error & { digest?: string }
 }
 
-export default function GlobalError({ error }: Readonly<GlobalErrorProps>) {
+export default function GlobalError({ error }: Readonly<Props>) {
 	useEffect(() => {
 		Sentry.captureException(error)
 	}, [error])
