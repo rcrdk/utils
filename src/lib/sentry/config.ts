@@ -1,4 +1,4 @@
-import { contextLinesIntegration, type BrowserOptions, type EdgeOptions, type NodeOptions } from '@sentry/nextjs'
+import type { BrowserOptions, EdgeOptions, NodeOptions } from '@sentry/nextjs'
 
 import { env, isProduction } from '@/lib/env'
 
@@ -21,7 +21,6 @@ export const getClientSentryOptions = (): BrowserOptions => ({
 
 export const getServerSentryOptions = (): NodeOptions => ({
 	...getBaseSentryOptions(),
-	integrations: [contextLinesIntegration()],
 })
 
 export const getEdgeSentryOptions = (): EdgeOptions => ({

@@ -24,7 +24,7 @@ Sentry capture is disabled when `NEXT_PUBLIC_SENTRY_DSN` is unset.
 | -------------------- | --------------------------------------------------- | ------------------------------------------------ |
 | `config.ts`          | `isSentryEnabled`                                   | Whether a DSN is configured                      |
 | `config.ts`          | `getClientSentryOptions`                            | Browser SDK options                              |
-| `config.ts`          | `getServerSentryOptions`                            | Node SDK options (includes context lines)        |
+| `config.ts`          | `getServerSentryOptions`                            | Node SDK options                                 |
 | `config.ts`          | `getEdgeSentryOptions`                              | Edge SDK options                                 |
 | `normalize-error.ts` | `normalizeError`                                    | Coerces unknown values into an `Error` instance  |
 | `report-error.ts`    | `reportError`                                       | Logs in dev; captures in Sentry when enabled     |

@@ -39,7 +39,7 @@ describe('SentryConfig', () => {
 		})
 	})
 
-	it('should return server options with context line integration', async () => {
+	it('should return server options with the configured DSN and environment', async () => {
 		vi.stubEnv('NODE_ENV', 'production')
 		vi.stubEnv('NEXT_PUBLIC_SENTRY_DSN', 'https://example@sentry.io/1')
 
@@ -47,11 +47,12 @@ describe('SentryConfig', () => {
 
 		const options = getServerSentryOptions()
 
-		expect(options.dsn).toBe('https://example@sentry.io/1')
-		expect(options.enabled).toBe(true)
-		expect(options.environment).toBe('production')
-		expect(options.tracesSampleRate).toBe(0.1)
-		expect(options.integrations).toHaveLength(1)
+		expect(options).toEqual({
+			dsn: 'https://example@sentry.io/1',
+			enabled: true,
+			environment: 'production',
+			tracesSampleRate: 0.1,
+		})
 	})
 
 	it('should return edge options with the configured DSN', async () => {
