@@ -25,6 +25,9 @@ See [typescript](../../agents/rules/typescript.mdc) for type conventions.
 | `use-resize-observer.ts`        | `useResizeObserver`       | Observes size changes on a ref'd element and exposes `width` and `height` from `contentRect`     |
 | `use-session-storage.ts`        | `useSessionStorage`       | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
 | `use-query-client-restore.ts`   | `useQueryClientRestore`   | Gates rendering until the TanStack Query IndexedDB cache is restored (skipped in tests)          |
+| `use-audio-recorder.ts`         | `useAudioRecorder`        | Records microphone audio via `MediaRecorder` and exposes record/discard handlers                |
+| `use-audio-transcription.ts`    | `useAudioTranscription`   | Sends a recorded blob to a `transcribeAction` and tracks transcribing state                      |
+| `use-escape-key.ts`             | `useEscapeKey`            | Calls a callback when Escape is pressed while `enabled` is true                                  |
 
 ### `tanstack-query/`
 
@@ -228,6 +231,71 @@ const { foo } = useFoo({ enabled: isSignedIn, staleTime: 60_000 })
 ```
 
 Fetches from `/api/foo`. Use `fetchFoo` directly for prefetching or mutations.
+
+### `useAudioRecorder` — microphone recording
+
+Handles microphone permission, `MediaRecorder` lifecycle, and record/discard/send actions. Pass `isTranscribing` to update the record button aria label while transcription runs.
+
+```tsx
+import { useAudioRecorder } from '@/hooks/use-audio-recorder'
+
+const {
+  isRecording,
+  recordButtonLabel,
+  recordButtonRef,
+  onRecordButtonClick,
+  onDiscardRecording,
+} = useAudioRecorder({
+  isTranscribing,
+  onTranscription: async (blob) => transcribe(blob),
+  onError: (error) => toast.error(error),
+  onStartRecording: () => setStatus('recording'),
+  onStopRecording: () => setStatus('idle'),
+})
+
+<button
+  type="button"
+  ref={recordButtonRef}
+  aria-label={recordButtonLabel}
+  onClick={onRecordButtonClick}
+>
+  {isRecording ? 'Stop' : 'Record'}
+</button>
+```
+
+Returns `{ isRecording, recordButtonLabel, recordButtonRef, onRecordButtonClick, onDiscardRecording }`. Error messages come from `MICROPHONE_ERROR_MESSAGES` in `@/constants/ui/audio-recorder`.
+
+### `useAudioTranscription` — blob transcription
+
+Wraps a `transcribeAction` with loading state and lifecycle callbacks. Export type `TranscribeAction` for server actions or API helpers.
+
+```tsx
+import { transcribeAudioAction } from '@/app/_actions/transcribe'
+import { useAudioTranscription } from '@/hooks/use-audio-transcription'
+
+const { transcribe, isTranscribing } = useAudioTranscription({
+  transcribeAction: transcribeAudioAction,
+  onStart: () => setStatus('transcribing'),
+  onSuccess: (text) => setMessage(text),
+  onError: (error) => toast.error(error),
+  onFinish: () => setStatus('idle'),
+})
+
+await transcribe(audioBlob)
+```
+
+`transcribeAction` must return `{ text: string }` on success or a `string` error message. Throws on failure after calling `onError`.
+
+### `useEscapeKey` — Escape key handler
+
+```tsx
+import { useEscapeKey } from '@/hooks/use-escape-key'
+
+useEscapeKey({
+  enabled: isModalOpen,
+  onEscape: closeModal,
+})
+```
 
 ## Adding a new hook
 
