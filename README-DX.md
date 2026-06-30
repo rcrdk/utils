@@ -15,9 +15,10 @@ Quick reference for the tooling in this project — linting, formatting, git hoo
 │ commitlint  │ ──► validates Conventional Commits format
 └─────────────┘
 
-┌─────────────┐     pre-push        ┌─────────────┐
-│  git push   │ ──────────────────► │  typecheck  │ ──► tsc --noEmit
-└─────────────┘                     └─────────────┘
+┌─────────────┐     pre-push        ┌─────────────┐     ┌─────────────┐
+│  git push   │ ──────────────────► │  typecheck  │ ──► │  test:run   │
+└─────────────┘                     └─────────────┘     └─────────────┘
+                                                      tsc --noEmit → vitest run
 ```
 
 ## Scripts
@@ -44,7 +45,7 @@ Git hooks live in [`.husky/`](./.husky/).
 | -------------- | ----------------------------- | ------------------------------------------ |
 | **pre-commit** | `pnpm lint-staged`            | Lint and format staged files before commit |
 | **commit-msg** | `pnpm commitlint --edit "$1"` | Validate commit message format             |
-| **pre-push**   | `pnpm typecheck`              | Block push if TypeScript has errors        |
+| **pre-push**   | `pnpm typecheck && pnpm test:run` | Block push if TypeScript or tests fail |
 
 Husky is installed on every `pnpm install` through:
 
@@ -159,7 +160,7 @@ Config: [`tsconfig.json`](./tsconfig.json)
 | Path alias        | `@/*` → `./src/*`                                  |
 | Emit              | Off (`noEmit: true` — Next.js handles compilation) |
 
-Run `pnpm typecheck` locally or rely on the **pre-push** hook.
+Run `pnpm typecheck` and `pnpm test:run` locally or rely on the **pre-push** hook.
 
 ---
 
