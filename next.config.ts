@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next'
 import { withSentryConfig } from '@sentry/nextjs'
 
-import { env } from './src/env'
+import { env } from './src/lib/env'
 
 const isCi = ['1', 'true'].includes(env.CI ?? '')
 
@@ -54,6 +54,10 @@ export default withSentryConfig(nextConfig, {
 	project: env.SENTRY_PROJECT,
 	silent: !isCi,
 	widenClientFileUpload: true,
-	disableLogger: true,
+	webpack: {
+		treeshake: {
+			removeDebugLogging: true,
+		},
+	},
 	tunnelRoute: '/monitoring',
 })

@@ -2,7 +2,7 @@ import NextAuth from 'next-auth'
 import Google from 'next-auth/providers/google'
 
 import { AUTH_CONFIG } from '@/config/auth'
-import { env } from '@/env'
+import { env } from '@/lib/env'
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
 	providers: [

@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/nextjs'
 
-import { isProduction } from '@/env'
+import { isProduction } from '@/lib/env'
 import { isSentryEnabled } from '@/lib/sentry/config'
 import { normalizeError } from '@/lib/sentry/normalize-error'
 

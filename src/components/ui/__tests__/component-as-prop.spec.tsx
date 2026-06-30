@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 
-import { Text } from '@/components/component-as-prop'
+import { Text } from '@/components/ui/component-as-prop'
 
 describe('Text component', () => {
 	it('should render as a paragraph by default', () => {

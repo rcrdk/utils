@@ -24,6 +24,13 @@ See [typescript](../../agents/rules/typescript.mdc) for type conventions.
 | `use-local-storage.ts`          | `useLocalStorage`         | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
 | `use-resize-observer.ts`        | `useResizeObserver`       | Observes size changes on a ref'd element and exposes `width` and `height` from `contentRect`     |
 | `use-session-storage.ts`        | `useSessionStorage`       | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
+| `use-query-client-restore.ts`   | `useQueryClientRestore`   | Gates rendering until the TanStack Query IndexedDB cache is restored (skipped in tests)          |
+
+### `tanstack-query/`
+
+| File         | Export                      | Description                              |
+| ------------ | --------------------------- | ---------------------------------------- |
+| `use-foo.ts` | `useFoo`, `fetchFoo` | Example `useQuery` hook that fetches foo |
 
 ## Usage
 
@@ -188,6 +195,39 @@ if (storedFilters) {
 saveSessionValue({ query: 'apartments', page: 1 })
 clearSessionValue()
 ```
+
+### `useQueryClientRestore` — wait for offline cache restore
+
+Used by `TanstackQueryProvider`. Returns `true` while the IndexedDB cache is restoring. Set `SKIP_CACHE_RESTORE=true` to skip (Vitest does this automatically).
+
+```tsx
+import { useQueryClientRestore } from '@/hooks/use-query-client-restore'
+
+const isWaitingForRestore = useQueryClientRestore()
+
+if (isWaitingForRestore) return null
+```
+
+### `useFoo` — example TanStack Query fetch
+
+```tsx
+import { useFoo } from '@/hooks/tanstack-query/use-foo'
+
+const { foo, isLoading, isError } = useFoo()
+
+if (isLoading) return <p>Loading…</p>
+if (isError) return <p>Failed to load foo</p>
+
+return <p>{foo?.message}</p>
+```
+
+Pass any `useQuery` option except `queryKey` and `queryFn`:
+
+```tsx
+const { foo } = useFoo({ enabled: isSignedIn, staleTime: 60_000 })
+```
+
+Fetches from `/api/foo`. Use `fetchFoo` directly for prefetching or mutations.
 
 ## Adding a new hook
 

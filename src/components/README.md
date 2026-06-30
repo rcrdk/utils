@@ -14,9 +14,10 @@ See [react-components](../../agents/rules/react-components.mdc) for full rules (
 
 ## Index
 
-| File                    | Export | Description                                  |
-| ----------------------- | ------ | -------------------------------------------- |
-| `component-as-prop.tsx` | `Text` | Polymorphic text component with an `as` prop |
+| File                              | Export                 | Description                                  |
+| --------------------------------- | ---------------------- | -------------------------------------------- |
+| `component-as-prop.tsx`           | `Text`                 | Polymorphic text component with an `as` prop |
+| `providers/tanstack-query.tsx`    | `TanstackQueryProvider`| TanStack Query client with IndexedDB restore |
 
 ## Usage
 
@@ -37,6 +38,16 @@ import { Text } from '@/components/component-as-prop'
   Page heading
 </Text>
 ```
+
+### `TanstackQueryProvider` — query client with offline restore
+
+```tsx
+import { TanstackQueryProvider } from '@/components/providers/tanstack-query'
+
+<TanstackQueryProvider>{children}</TanstackQueryProvider>
+```
+
+Returns `null` until the IndexedDB cache restore completes (unless `SKIP_CACHE_RESTORE=true`).
 
 ## Adding a new component
 

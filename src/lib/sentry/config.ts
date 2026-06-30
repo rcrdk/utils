@@ -1,6 +1,6 @@
 import { contextLinesIntegration, type BrowserOptions, type EdgeOptions, type NodeOptions } from '@sentry/nextjs'
 
-import { env, isProduction } from '@/env'
+import { env, isProduction } from '@/lib/env'
 
 export const isSentryEnabled = Boolean(env.NEXT_PUBLIC_SENTRY_DSN)
 

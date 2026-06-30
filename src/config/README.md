@@ -1,13 +1,14 @@
 # Config
 
 Shared app configuration constants. Integration setup (Auth.js, Sentry SDK) lives in `src/lib/`; route paths and store schemas live here.
-
+****
 ## Index
 
-| File          | Export         | Description                                                          |
-| ------------- | -------------- | -------------------------------------------------------------------- |
-| `auth/`       | `AUTH_CONFIG`  | Auth route paths — login, post sign-in redirect, post sign-out redirect |
-| `indexeddb.ts`| `INDEXED_DB_CONFIG` | Database name, version, and store definitions used by `useIndexedDB` |
+| File               | Export                 | Description                                                          |
+| ------------------ | ---------------------- | -------------------------------------------------------------------- |
+| `auth.ts`          | `AUTH_CONFIG`          | Auth route paths — login, post sign-in redirect, post sign-out redirect |
+| `indexeddb.ts`     | `INDEXED_DB_CONFIG`    | Database name, version, and store definitions used by `useIndexedDB` |
+| `tanstack-query.ts`| `REACT_QUERY_CONFIG`, `REACT_QUERY_CACHE_KEY` | TanStack Query defaults and IndexedDB cache key |
 
 ## Usage
 
@@ -33,6 +34,17 @@ INDEXED_DB_CONFIG.STORES
 ```
 
 Configure stores before using `@/hooks/use-indexed-db`.
+
+### TanStack Query
+
+```typescript
+import { REACT_QUERY_CACHE_KEY, REACT_QUERY_CONFIG } from '@/config/tanstack-query'
+
+REACT_QUERY_CONFIG.staleTime
+REACT_QUERY_CACHE_KEY
+```
+
+See [lib/tanstack-query/README.md](../lib/tanstack-query/README.md) for provider and persistence setup.
 
 ## Adding config
 

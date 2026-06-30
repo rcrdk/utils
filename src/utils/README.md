@@ -36,12 +36,19 @@ Copy-paste utility snippets organized by domain. Each file exports one or more `
 | ---------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Server action wrappers with Auth.js session checks, optional Zod validation, and unauthorized redirect      |
 
-Requires auth setup in `@/lib/auth`. Unauthenticated calls redirect to `AUTH_CONFIG.LOGIN_PATH` unless `disableRedirectOnError` is set.
+Requires auth setup in `@/lib/auth` for `validated-actions`. Unauthenticated calls redirect to `AUTH_CONFIG.LOGIN_PATH` unless `disableRedirectOnError` is set.
+
+### `app/`
+
+| File                   | Export             | Description                                      |
+| ---------------------- | ------------------ | ------------------------------------------------ |
+| `compose-providers.ts` | `composeProviders` | Nests multiple React context providers into one  |
 
 ## Usage
 
 ```typescript
 import { actionWithUser, validatedActionWithUser } from '@/utils/action/validated-actions'
+import { composeProviders } from '@/utils/app/compose-providers'
 import { groupBy } from '@/utils/array/group-by'
 import { isQueryIncluded } from '@/utils/array/is-query-included'
 import { generateSlug } from '@/utils/string/generate-slug'
@@ -54,6 +61,8 @@ const matches = isQueryIncluded('sao', 'São Paulo')
 const slug = generateSlug('Hello World') // 'hello-world'
 
 const className = cn('px-4', isActive && 'bg-blue-500', className)
+
+const Providers = composeProviders(ThemeProvider, QueryProvider)
 ```
 
 ### `validatedActionWithUser` / `actionWithUser` — authenticated server actions
