@@ -5,6 +5,8 @@ import * as Sentry from '@sentry/nextjs'
 
 import '@/styles/globals.css'
 
+import { HTML_CONFIG } from '@/config/html'
+
 interface GlobalErrorProps {
 	error: Error & { digest?: string }
 }
@@ -15,7 +17,7 @@ export default function GlobalError({ error }: Readonly<GlobalErrorProps>) {
 	}, [error])
 
 	return (
-		<html lang="en">
+		<html lang={HTML_CONFIG.LANG}>
 			<body>
 				<h1>Something went wrong</h1>
 			</body>
