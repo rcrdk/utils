@@ -3,6 +3,8 @@
 import { useEffect } from 'react'
 import * as Sentry from '@sentry/nextjs'
 
+import '@/styles/globals.css'
+
 interface GlobalErrorProps {
 	error: Error & { digest?: string }
 }
