@@ -1,14 +1,18 @@
-export const groupBy = <T extends Record<K, PropertyKey>, K extends keyof T>(collection: T[], key: K) => {
+type Groupable = PropertyKey | boolean
+
+type AsRecordKey<T> = T extends boolean ? `${T}` : T extends PropertyKey ? T : string
+
+export const groupBy = <T extends Record<K, Groupable>, K extends keyof T>(collection: T[], key: K) => {
 	const grouped = collection.reduce(
 		(previous, current) => {
-			if (!previous[current[key]]) {
-				previous[current[key]] = [] as T[]
-			}
+			const groupKey = current[key] as AsRecordKey<T[K]>
 
-			previous[current[key]].push(current)
+			if (!previous[groupKey]) previous[groupKey] = [] as T[]
+
+			previous[groupKey].push(current)
 			return previous
 		},
-		{} as Record<T[K], T[]>,
+		{} as Record<AsRecordKey<T[K]>, T[]>,
 	)
 
 	return grouped

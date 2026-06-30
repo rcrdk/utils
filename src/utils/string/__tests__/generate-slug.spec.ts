@@ -23,4 +23,27 @@ describe('GenerateSlug', () => {
 	it('should return an empty string for whitespace-only input', () => {
 		expect(generateSlug('   ')).toBe('')
 	})
+
+	it.each([
+		['numeric segments', 'Room 404', 'room-404'],
+		['emoji and symbols', 'Hello 🚀 World!!!', 'hello-world'],
+		['german umlauts', 'Müller Straße', 'muller-strae'],
+		['cyrillic text', 'Москва центр', '-'],
+		['multiple consecutive separators', '---foo---bar---', '-foo-bar-'],
+	] as const)('should handle %s', (_label, input, expected) => {
+		expect(generateSlug(input)).toBe(expected)
+	})
+
+	it('should preserve existing hyphens between words', () => {
+		expect(generateSlug('pre-built modules')).toBe('pre-built-modules')
+	})
+
+	it('should not mutate the input string', () => {
+		const input = 'São Paulo'
+		const snapshot = input
+
+		generateSlug(input)
+
+		expect(input).toBe(snapshot)
+	})
 })

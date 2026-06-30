@@ -78,6 +78,36 @@ describe('ValidatedActionWithUser', () => {
 		await expect(saveTask({ title: 'Follow up' })).rejects.toThrow('save failed')
 	})
 
+	it('should reject when the action rejects asynchronously', async () => {
+		const saveTask = validatedActionWithUser(taskSchema, async () => Promise.reject(new Error('async save failed')))
+
+		await expect(saveTask({ title: 'Follow up' })).rejects.toThrow('async save failed')
+	})
+
+	it('should return null when validation fails with nested schema fields', async () => {
+		const nestedSchema = z.object({
+			title: z.string(),
+			meta: z.object({ priority: z.number() }),
+		})
+
+		const saveTask = validatedActionWithUser(nestedSchema, async (data, user) => ({
+			title: data.title,
+			userId: user.id,
+		}))
+
+		const result = await saveTask({ title: 'Follow up', meta: { priority: 'high' } } as never)
+
+		expect(result).toBeNull()
+	})
+
+	it('should strip unknown fields before calling the action', async () => {
+		const saveTask = validatedActionWithUser(taskSchema, async (data) => data)
+
+		const result = await saveTask({ title: 'Follow up', extra: 'ignored' } as never)
+
+		expect(result).toEqual({ title: 'Follow up' })
+	})
+
 	it('should not redirect when "disableRedirectOnError" is true', async () => {
 		getSessionUser.mockResolvedValue(null)
 
@@ -140,5 +170,11 @@ describe('ActionWithUser', () => {
 		})
 
 		await expect(loadProfile()).rejects.toThrow('load failed')
+	})
+
+	it('should reject when the action rejects asynchronously', async () => {
+		const loadProfile = actionWithUser(async () => Promise.reject(new Error('async load failed')))
+
+		await expect(loadProfile()).rejects.toThrow('async load failed')
 	})
 })

@@ -30,4 +30,28 @@ describe('isQueryIncluded', () => {
 	it('should ignore leading and trailing whitespace in query and target', () => {
 		expect(isQueryIncluded('  sao  ', '  São Paulo  ')).toBe(true)
 	})
+
+	it.each([
+		['query longer than target', 'hello world extra', 'hello'],
+		['target with only whitespace after trim', 'test', '   '],
+	] as const)('should return false when %s', (_label, query, target) => {
+		expect(isQueryIncluded(query, target)).toBe(false)
+	})
+
+	it('should match any target when query is whitespace-only after trim', () => {
+		expect(isQueryIncluded('   ', 'São Paulo')).toBe(true)
+	})
+
+	it.each([
+		['german umlaut query', 'muller', 'Müller GmbH'],
+		['partial word at boundary', 'Paulo', 'São Paulo'],
+		['multi-word query', 'rio de', 'Rio de Janeiro'],
+	] as const)('should match %s', (_label, query, target) => {
+		expect(isQueryIncluded(query, target)).toBe(true)
+	})
+
+	it('should not match when normalized query differs only by diacritics in the middle of a longer word', () => {
+		expect(isQueryIncluded('cafe', 'café com leite')).toBe(true)
+		expect(isQueryIncluded('café', 'cafe com leite')).toBe(true)
+	})
 })
