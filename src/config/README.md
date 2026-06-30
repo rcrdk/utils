@@ -1,14 +1,16 @@
 # Config
 
 Shared app configuration constants. Integration setup (Auth.js, Sentry SDK) lives in `src/lib/`; route paths and store schemas live here.
-****
+
+---
+
 ## Index
 
-| File               | Export                 | Description                                                          |
-| ------------------ | ---------------------- | -------------------------------------------------------------------- |
-| `auth.ts`          | `AUTH_CONFIG`          | Auth route paths — login, post sign-in redirect, post sign-out redirect |
-| `indexeddb.ts`     | `INDEXED_DB_CONFIG`    | Database name, version, and store definitions used by `useIndexedDB` |
-| `tanstack-query.ts`| `REACT_QUERY_CONFIG`, `REACT_QUERY_CACHE_KEY` | TanStack Query defaults and IndexedDB cache key |
+| File                | Export                                        | Description                                                             |
+| ------------------- | --------------------------------------------- | ----------------------------------------------------------------------- |
+| `auth.ts`           | `AUTH_CONFIG`                                 | Auth route paths — login, post sign-in redirect, post sign-out redirect |
+| `indexeddb.ts`      | `INDEXED_DB_CONFIG`                           | Database name, version, and store definitions used by `useIndexedDB`    |
+| `tanstack-query.ts` | `REACT_QUERY_CONFIG`, `REACT_QUERY_CACHE_KEY` | TanStack Query defaults and IndexedDB cache key                         |
 
 ## Usage
 
@@ -17,9 +19,9 @@ Shared app configuration constants. Integration setup (Auth.js, Sentry SDK) live
 ```typescript
 import { AUTH_CONFIG } from '@/config/auth'
 
-AUTH_CONFIG.LOGIN_PATH              // '/login'
-AUTH_CONFIG.DEFAULT_REDIRECT_PATH   // '/' — after sign-in
-AUTH_CONFIG.SIGN_OUT_REDIRECT_PATH  // '/login' — after sign-out
+AUTH_CONFIG.LOGIN_PATH // '/login'
+AUTH_CONFIG.DEFAULT_REDIRECT_PATH // '/' — after sign-in
+AUTH_CONFIG.SIGN_OUT_REDIRECT_PATH // '/login' — after sign-out
 ```
 
 See [lib/auth/README.md](../lib/auth/README.md) for OAuth setup and Server Actions.

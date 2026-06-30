@@ -12,19 +12,19 @@ Wrap the app with `TanstackQueryProvider` from `@/components/providers/tanstack-
 
 ## Index
 
-| File                    | Export                      | Description                                              |
-| ----------------------- | --------------------------- | -------------------------------------------------------- |
-| `index.ts`              | `queryClient`               | Shared `QueryClient` with defaults from config           |
-| `persister.ts`          | `createQueryClientPersister`| Persister factory for `@tanstack/query-persist-client-core` |
-| `persister-methods.ts`  | `persistClient`, `restoreClient`, `removeClient` | IndexedDB read/write helpers for the offline cache |
+| File                   | Export                                           | Description                                                 |
+| ---------------------- | ------------------------------------------------ | ----------------------------------------------------------- |
+| `index.ts`             | `queryClient`                                    | Shared `QueryClient` with defaults from config              |
+| `persister.ts`         | `createQueryClientPersister`                     | Persister factory for `@tanstack/query-persist-client-core` |
+| `persister-methods.ts` | `persistClient`, `restoreClient`, `removeClient` | IndexedDB read/write helpers for the offline cache          |
 
 ## Related modules
 
-| Location | Role |
-| -------- | ---- |
-| `@/config/tanstack-query` | `REACT_QUERY_CONFIG`, `REACT_QUERY_CACHE_KEY` |
-| `@/hooks/use-query-client-restore` | Waits for cache restore before rendering children |
-| `@/components/providers/tanstack-query` | `TanstackQueryProvider` |
+| Location                                | Role                                              |
+| --------------------------------------- | ------------------------------------------------- |
+| `@/config/tanstack-query`               | `REACT_QUERY_CONFIG`, `REACT_QUERY_CACHE_KEY`     |
+| `@/hooks/use-query-client-restore`      | Waits for cache restore before rendering children |
+| `@/components/providers/tanstack-query` | `TanstackQueryProvider`                           |
 
 ## Usage
 
@@ -33,7 +33,7 @@ Wrap the app with `TanstackQueryProvider` from `@/components/providers/tanstack-
 ```tsx
 import { TanstackQueryProvider } from '@/components/providers/tanstack-query'
 
-<TanstackQueryProvider>{children}</TanstackQueryProvider>
+;<TanstackQueryProvider>{children}</TanstackQueryProvider>
 ```
 
 ### Compose with other providers

@@ -41,11 +41,11 @@ After `pnpm install`, Husky hooks are enabled automatically via the `prepare` sc
 
 Git hooks live in [`.husky/`](./.husky/).
 
-| Hook           | Runs                          | Purpose                                    |
-| -------------- | ----------------------------- | ------------------------------------------ |
-| **pre-commit** | `pnpm lint-staged`            | Lint and format staged files before commit |
-| **commit-msg** | `pnpm commitlint --edit "$1"` | Validate commit message format             |
-| **pre-push**   | `pnpm typecheck && pnpm test:run` | Block push if TypeScript or tests fail |
+| Hook           | Runs                              | Purpose                                    |
+| -------------- | --------------------------------- | ------------------------------------------ |
+| **pre-commit** | `pnpm lint-staged`                | Lint and format staged files before commit |
+| **commit-msg** | `pnpm commitlint --edit "$1"`     | Validate commit message format             |
+| **pre-push**   | `pnpm typecheck && pnpm test:run` | Block push if TypeScript or tests fail     |
 
 Husky is installed on every `pnpm install` through:
 
@@ -59,12 +59,14 @@ Husky is installed on every `pnpm install` through:
 
 Config: [`.lintstagedrc.json`](./.lintstagedrc.json)
 
-On commit, only **staged** files matching `*.{ts,tsx,js,jsx}` are processed:
+On commit, only **staged** files are processed:
 
-1. `eslint --fix`
-2. `prettier --write`
+| Glob                                 | Steps                                   |
+| ------------------------------------ | --------------------------------------- |
+| `*.{ts,tsx,js,jsx}`                  | `eslint --fix`, then `prettier --write` |
+| `*.{css,json,jsonc,md,mdx,yml,yaml}` | `prettier --write`                      |
 
-This keeps commits fast — the full codebase is not linted on every commit. Run `pnpm lint` manually for a full check.
+This keeps commits fast — the full codebase is not linted on every commit. Run `pnpm lint` or `pnpm format` manually for a full check.
 
 ---
 

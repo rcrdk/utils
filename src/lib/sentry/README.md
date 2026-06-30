@@ -20,14 +20,14 @@ Sentry capture is disabled when `NEXT_PUBLIC_SENTRY_DSN` is unset.
 
 ## Index
 
-| File                 | Export                                              | Description                                      |
-| -------------------- | --------------------------------------------------- | ------------------------------------------------ |
-| `config.ts`          | `isSentryEnabled`                                   | Whether a DSN is configured                      |
-| `config.ts`          | `getClientSentryOptions`                            | Browser SDK options                              |
-| `config.ts`          | `getServerSentryOptions`                            | Node SDK options                                 |
-| `config.ts`          | `getEdgeSentryOptions`                              | Edge SDK options                                 |
-| `normalize-error.ts` | `normalizeError`                                    | Coerces unknown values into an `Error` instance  |
-| `report-error.ts`    | `reportError`                                       | Logs in dev; captures in Sentry when enabled     |
+| File                 | Export                   | Description                                     |
+| -------------------- | ------------------------ | ----------------------------------------------- |
+| `config.ts`          | `isSentryEnabled`        | Whether a DSN is configured                     |
+| `config.ts`          | `getClientSentryOptions` | Browser SDK options                             |
+| `config.ts`          | `getServerSentryOptions` | Node SDK options                                |
+| `config.ts`          | `getEdgeSentryOptions`   | Edge SDK options                                |
+| `normalize-error.ts` | `normalizeError`         | Coerces unknown values into an `Error` instance |
+| `report-error.ts`    | `reportError`            | Logs in dev; captures in Sentry when enabled    |
 
 ## Usage
 
@@ -60,10 +60,10 @@ Handles `Error` instances, strings, objects with a `message`, and unknown values
 
 ## Sample rates
 
-| Environment              | `tracesSampleRate` |
-| ------------------------ | ------------------ |
-| Production               | `0.1`              |
-| Development / test       | `1`                |
+| Environment        | `tracesSampleRate` |
+| ------------------ | ------------------ |
+| Production         | `0.1`              |
+| Development / test | `1`                |
 
 Environment label comes from `NEXT_PUBLIC_SENTRY_ENVIRONMENT`, falling back to `NODE_ENV`.
 

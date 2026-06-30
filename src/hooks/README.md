@@ -14,25 +14,25 @@ See [typescript](../../agents/rules/typescript.mdc) for type conventions.
 
 ## Index
 
-| File                            | Export                    | Description                                                                                      |
-| ------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------ |
-| `use-copy-to-clipboard.ts`      | `useCopyToClipboard`      | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag              |
-| `use-debounce.ts`               | `useDebounce`             | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing)         |
-| `use-geolocation.ts`            | `useGeolocation`          | Requests the user's coordinates once via the Geolocation API                                     |
-| `use-indexed-db.ts`             | `useIndexedDB`            | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb`              |
-| `use-intersection-observer.ts`  | `useIntersectionObserver` | Observes when a ref'd element enters or leaves the viewport (or a custom root)                   |
-| `use-local-storage.ts`          | `useLocalStorage`         | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
-| `use-resize-observer.ts`        | `useResizeObserver`       | Observes size changes on a ref'd element and exposes `width` and `height` from `contentRect`     |
-| `use-session-storage.ts`        | `useSessionStorage`       | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
-| `use-query-client-restore.ts`   | `useQueryClientRestore`   | Gates rendering until the TanStack Query IndexedDB cache is restored (skipped in tests)          |
-| `use-audio-recorder.ts`         | `useAudioRecorder`        | Records microphone audio via `MediaRecorder` and exposes record/discard handlers                |
-| `use-audio-transcription.ts`    | `useAudioTranscription`   | Sends a recorded blob to a `transcribeAction` and tracks transcribing state                      |
-| `use-escape-key.ts`             | `useEscapeKey`            | Calls a callback when Escape is pressed while `enabled` is true                                  |
+| File                           | Export                    | Description                                                                                      |
+| ------------------------------ | ------------------------- | ------------------------------------------------------------------------------------------------ |
+| `use-copy-to-clipboard.ts`     | `useCopyToClipboard`      | Copies text via the Clipboard API and tracks a short-lived `copiedToClipboard` flag              |
+| `use-debounce.ts`              | `useDebounce`             | Returns a debounced copy of a value after a delay (pass `delay <= 0` to skip debouncing)         |
+| `use-geolocation.ts`           | `useGeolocation`          | Requests the user's coordinates once via the Geolocation API                                     |
+| `use-indexed-db.ts`            | `useIndexedDB`            | Opens and exposes CRUD helpers for IndexedDB stores defined in `@/config/indexeddb`              |
+| `use-intersection-observer.ts` | `useIntersectionObserver` | Observes when a ref'd element enters or leaves the viewport (or a custom root)                   |
+| `use-local-storage.ts`         | `useLocalStorage`         | Persists and retrieves Zod-validated values in `localStorage` with safe get/save/clear helpers   |
+| `use-resize-observer.ts`       | `useResizeObserver`       | Observes size changes on a ref'd element and exposes `width` and `height` from `contentRect`     |
+| `use-session-storage.ts`       | `useSessionStorage`       | Persists and retrieves Zod-validated values in `sessionStorage` with safe get/save/clear helpers |
+| `use-query-client-restore.ts`  | `useQueryClientRestore`   | Gates rendering until the TanStack Query IndexedDB cache is restored (skipped in tests)          |
+| `use-audio-recorder.ts`        | `useAudioRecorder`        | Records microphone audio via `MediaRecorder` and exposes record/discard handlers                 |
+| `use-audio-transcription.ts`   | `useAudioTranscription`   | Sends a recorded blob to a `transcribeAction` and tracks transcribing state                      |
+| `use-escape-key.ts`            | `useEscapeKey`            | Calls a callback when Escape is pressed while `enabled` is true                                  |
 
 ### `tanstack-query/`
 
-| File         | Export                      | Description                              |
-| ------------ | --------------------------- | ---------------------------------------- |
+| File         | Export               | Description                              |
+| ------------ | -------------------- | ---------------------------------------- |
 | `use-foo.ts` | `useFoo`, `fetchFoo` | Example `useQuery` hook that fetches foo |
 
 ## Usage

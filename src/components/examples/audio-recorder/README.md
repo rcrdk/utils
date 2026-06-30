@@ -6,11 +6,11 @@ Composed from `useAudioRecorder`, `useAudioTranscription`, and `useEscapeKey`. E
 
 ## Files
 
-| File                 | Export                     | Description                                      |
-| -------------------- | -------------------------- | ------------------------------------------------ |
+| File                 | Export                     | Description                                              |
+| -------------------- | -------------------------- | -------------------------------------------------------- |
 | `index.tsx`          | `AudioRecorder`            | Record button, discard control, and transcription wiring |
-| `discard-button.tsx` | `DiscardButton`            | Cancel button shown while recording              |
-| `icons.tsx`          | `AudioRecorderButtonIcons` | Icon state for record / stop / sending           |
+| `discard-button.tsx` | `DiscardButton`            | Cancel button shown while recording                      |
+| `icons.tsx`          | `AudioRecorderButtonIcons` | Icon state for record / stop / sending                   |
 
 ## Usage
 
@@ -20,7 +20,7 @@ Pass a `transcribeAction` that accepts a `Blob` and returns `{ text: string }` o
 import { transcribeAudioAction } from '@/app/_actions/transcribe'
 import { AudioRecorder } from '@/components/examples/audio-recorder'
 
-<AudioRecorder
+;<AudioRecorder
   transcribeAction={transcribeAudioAction}
   onTranscription={(text) => setMessage(text)}
   onError={(error) => toast.error(error)}
@@ -69,11 +69,11 @@ Use the `classes` prop to target sub-elements:
 
 Record button aria labels (Portuguese):
 
-| State        | Label                         |
-| ------------ | ----------------------------- |
-| Idle         | `Gravar áudio`                |
-| Recording    | `Parar gravação e enviar`     |
-| Transcribing | `Enviando áudio...`           |
+| State        | Label                     |
+| ------------ | ------------------------- |
+| Idle         | `Gravar áudio`            |
+| Recording    | `Parar gravação e enviar` |
+| Transcribing | `Enviando áudio...`       |
 
 ## Hooks
 

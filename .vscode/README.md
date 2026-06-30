@@ -26,6 +26,17 @@ VS Code / Cursor shows an **Install Recommended Extensions** prompt when the wor
 
 ## Settings
 
+### Format on save
+
+```json
+"editor.formatOnSave": true,
+"editor.defaultFormatter": "esbenp.prettier-vscode"
+```
+
+Prettier formats on save for TypeScript, Markdown, CSS, JSON, YAML, and other supported files. ESLint auto-fix on save runs for `*.{ts,tsx,js,jsx}` via `source.fixAll.eslint`.
+
+Requires the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) extension (listed in `extensions.json`).
+
 ### Import aliases
 
 ```json

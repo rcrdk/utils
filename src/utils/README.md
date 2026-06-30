@@ -32,17 +32,17 @@ Copy-paste utility snippets organized by domain. Each file exports one or more `
 
 ### `action/`
 
-| File                   | Export                                      | Description                                                                                               |
-| ---------------------- | ------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Server action wrappers with Auth.js session checks, optional Zod validation, and unauthorized redirect      |
+| File                   | Export                                      | Description                                                                                            |
+| ---------------------- | ------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `validated-actions.ts` | `validatedActionWithUser`, `actionWithUser` | Server action wrappers with Auth.js session checks, optional Zod validation, and unauthorized redirect |
 
 Requires auth setup in `@/lib/auth` for `validated-actions`. Unauthenticated calls redirect to `AUTH_CONFIG.LOGIN_PATH` unless `disableRedirectOnError` is set.
 
 ### `app/`
 
-| File                   | Export             | Description                                      |
-| ---------------------- | ------------------ | ------------------------------------------------ |
-| `compose-providers.ts` | `composeProviders` | Nests multiple React context providers into one  |
+| File                   | Export             | Description                                     |
+| ---------------------- | ------------------ | ----------------------------------------------- |
+| `compose-providers.ts` | `composeProviders` | Nests multiple React context providers into one |
 
 ## Usage
 

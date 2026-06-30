@@ -12,11 +12,11 @@ Third-party wrappers and integrations. Keep vendor-specific setup here; route-le
 
 ## Modules
 
-| Folder            | Description                                      | README                                         |
-| ----------------- | ------------------------------------------------ | ---------------------------------------------- |
-| `auth/`           | Auth.js (next-auth v5) session and OAuth setup   | [auth/README.md](./auth/README.md)             |
-| `sentry/`         | Sentry error reporting and SDK configuration     | [sentry/README.md](./sentry/README.md)         |
-| `tanstack-query/` | TanStack Query client and IndexedDB persistence  | [tanstack-query/README.md](./tanstack-query/README.md) |
+| Folder            | Description                                     | README                                                 |
+| ----------------- | ----------------------------------------------- | ------------------------------------------------------ |
+| `auth/`           | Auth.js (next-auth v5) session and OAuth setup  | [auth/README.md](./auth/README.md)                     |
+| `sentry/`         | Sentry error reporting and SDK configuration    | [sentry/README.md](./sentry/README.md)                 |
+| `tanstack-query/` | TanStack Query client and IndexedDB persistence | [tanstack-query/README.md](./tanstack-query/README.md) |
 
 ## Adding a new integration
 

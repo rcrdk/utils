@@ -14,11 +14,11 @@ See [react-components](../../agents/rules/react-components.mdc) for full rules (
 
 ## Index
 
-| File                              | Export                 | Description                                  |
-| --------------------------------- | ---------------------- | -------------------------------------------- |
-| `examples/polymorphic-component.tsx` | `PolymorphicComponent` | Polymorphic component with an `as` prop      |
-| `examples/audio-recorder/`        | `AudioRecorder`        | Microphone recorder with transcription wiring |
-| `providers/tanstack-query.tsx`    | `TanstackQueryProvider`| TanStack Query client with IndexedDB restore |
+| File                                 | Export                  | Description                                   |
+| ------------------------------------ | ----------------------- | --------------------------------------------- |
+| `examples/polymorphic-component.tsx` | `PolymorphicComponent`  | Polymorphic component with an `as` prop       |
+| `examples/audio-recorder/`           | `AudioRecorder`         | Microphone recorder with transcription wiring |
+| `providers/tanstack-query.tsx`       | `TanstackQueryProvider` | TanStack Query client with IndexedDB restore  |
 
 ## Usage
 
@@ -45,7 +45,7 @@ import { PolymorphicComponent } from '@/components/examples/polymorphic-componen
 ```tsx
 import { TanstackQueryProvider } from '@/components/providers/tanstack-query'
 
-<TanstackQueryProvider>{children}</TanstackQueryProvider>
+;<TanstackQueryProvider>{children}</TanstackQueryProvider>
 ```
 
 Returns `null` until the IndexedDB cache restore completes (unless `SKIP_CACHE_RESTORE=true`).
@@ -58,7 +58,7 @@ See [`examples/audio-recorder/README.md`](examples/audio-recorder/README.md) for
 import { transcribeAudioAction } from '@/app/_actions/transcribe'
 import { AudioRecorder } from '@/components/examples/audio-recorder'
 
-<AudioRecorder
+;<AudioRecorder
   transcribeAction={transcribeAudioAction}
   onTranscription={(text) => setMessage(text)}
   onError={(error) => toast.error(error)}

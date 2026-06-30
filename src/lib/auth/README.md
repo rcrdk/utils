@@ -22,25 +22,25 @@ In Google Cloud Console, set the authorized redirect URI to:
 
 Update paths in `@/config/auth`:
 
-| Constant                 | Default   | Used for                                |
-| ------------------------ | --------- | --------------------------------------- |
-| `LOGIN_PATH`             | `/login`  | Auth.js sign-in page, unauthorized redirect |
-| `DEFAULT_REDIRECT_PATH`  | `/`       | Post sign-in redirect                   |
-| `SIGN_OUT_REDIRECT_PATH` | `/login`  | Post sign-out redirect                  |
+| Constant                 | Default  | Used for                                    |
+| ------------------------ | -------- | ------------------------------------------- |
+| `LOGIN_PATH`             | `/login` | Auth.js sign-in page, unauthorized redirect |
+| `DEFAULT_REDIRECT_PATH`  | `/`      | Post sign-in redirect                       |
+| `SIGN_OUT_REDIRECT_PATH` | `/login` | Post sign-out redirect                      |
 
 ## Index
 
-| File                 | Export                          | Description                                           |
-| -------------------- | ------------------------------- | ----------------------------------------------------- |
-| `config.ts`          | `handlers`, `auth`, `signIn`, `signOut` | NextAuth setup (Google provider, JWT callbacks) |
-| `get-session-user.ts`| `getSessionUser`                | Maps the current session to a typed `User` or `null`  |
+| File                  | Export                                  | Description                                          |
+| --------------------- | --------------------------------------- | ---------------------------------------------------- |
+| `config.ts`           | `handlers`, `auth`, `signIn`, `signOut` | NextAuth setup (Google provider, JWT callbacks)      |
+| `get-session-user.ts` | `getSessionUser`                        | Maps the current session to a typed `User` or `null` |
 
 ## Server Actions
 
-| File                      | Export                   | Description                    |
-| ------------------------- | ------------------------ | ------------------------------ |
-| `app/_actions/auth.ts`    | `signInWithGoogleAction` | Starts Google OAuth flow       |
-| `app/_actions/auth.ts`    | `signOutAction`          | Ends the session and redirects |
+| File                   | Export                   | Description                    |
+| ---------------------- | ------------------------ | ------------------------------ |
+| `app/_actions/auth.ts` | `signInWithGoogleAction` | Starts Google OAuth flow       |
+| `app/_actions/auth.ts` | `signOutAction`          | Ends the session and redirects |
 
 ## Usage
 
