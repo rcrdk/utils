@@ -94,4 +94,45 @@ describe('UseCopyToClipboard', () => {
 		expect(consoleError).toHaveBeenCalledWith('Failed to copy text to clipboard', copyError)
 		expect(result.current.copiedToClipboard).toBe(false)
 	})
+
+	it('should reset the copied timeout when copy is triggered again before it expires', async () => {
+		const { result } = renderCopyHook()
+
+		await copyText(result, 'first')
+
+		act(() => {
+			vi.advanceTimersByTime(1500)
+		})
+
+		expect(result.current.copiedToClipboard).toBe(true)
+
+		await copyText(result, 'second')
+
+		act(() => {
+			vi.advanceTimersByTime(1500)
+		})
+
+		expect(result.current.copiedToClipboard).toBe(true)
+
+		act(() => {
+			vi.advanceTimersByTime(500)
+		})
+
+		expect(result.current.copiedToClipboard).toBe(false)
+		expect(writeText).toHaveBeenCalledTimes(2)
+	})
+
+	it('should clear the pending timeout on unmount', async () => {
+		const { result, unmount } = renderCopyHook()
+
+		await copyText(result, COPY_TEXT)
+
+		unmount()
+
+		act(() => {
+			vi.advanceTimersByTime(COPIED_MESSAGE_TIMEOUT)
+		})
+
+		expect(result.current.copiedToClipboard).toBe(true)
+	})
 })

@@ -100,4 +100,52 @@ describe('UseResizeObserver', () => {
 
 		expect(observerInstance?.disconnect).toHaveBeenCalledTimes(1)
 	})
+
+	it('should observe with a custom "box" option', () => {
+		renderHook(() => useResizeObserver({ ...defaultParams, box: 'border-box' }))
+
+		const observerInstance = observerInstances.at(0)
+
+		expect(observerInstance?.observe).toHaveBeenCalledWith(defaultParams.ref.current, { box: 'border-box' })
+	})
+
+	it('should update dimensions on successive resize events', () => {
+		const { result } = renderHook(() => useResizeObserver(defaultParams))
+
+		const observerInstance = observerInstances.at(0)
+
+		act(() => {
+			observerInstance?.trigger(100, 50)
+		})
+
+		expect(result.current.width).toBe(100)
+		expect(result.current.height).toBe(50)
+
+		act(() => {
+			observerInstance?.trigger(640, 480)
+		})
+
+		expect(result.current.width).toBe(640)
+		expect(result.current.height).toBe(480)
+	})
+
+	it('should not observe when "ref.current" is null', () => {
+		const ref: RefObject<Element | null> = { current: null }
+
+		renderHook(() => useResizeObserver({ ref }))
+
+		expect(observerInstances).toHaveLength(0)
+	})
+
+	it('should reconnect when "enabled" toggles from false to true', () => {
+		const { rerender } = renderHook(({ enabled }) => useResizeObserver({ ...defaultParams, enabled }), {
+			initialProps: { enabled: false },
+		})
+
+		expect(observerInstances).toHaveLength(0)
+
+		rerender({ enabled: true })
+
+		expect(observerInstances).toHaveLength(1)
+	})
 })

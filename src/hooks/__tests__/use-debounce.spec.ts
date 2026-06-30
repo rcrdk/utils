@@ -91,4 +91,67 @@ describe('UseDebounce', () => {
 
 		expect(result.current).toBe('b')
 	})
+
+	it('should reset the timer when value changes before the delay elapses', () => {
+		const { result, rerender } = renderHook(({ value }) => useDebounce(value, DEBOUNCE_DELAY), {
+			initialProps: { value: 'a' },
+		})
+
+		rerender({ value: 'b' })
+
+		act(() => {
+			vi.advanceTimersByTime(400)
+		})
+
+		expect(result.current).toBe('a')
+
+		rerender({ value: 'c' })
+
+		act(() => {
+			vi.advanceTimersByTime(400)
+		})
+
+		expect(result.current).toBe('a')
+
+		act(() => {
+			vi.advanceTimersByTime(100)
+		})
+
+		expect(result.current).toBe('c')
+	})
+
+	it('should not update after unmount when the delay elapses', () => {
+		const { result, rerender, unmount } = renderHook(({ value }) => useDebounce(value, DEBOUNCE_DELAY), {
+			initialProps: { value: 'a' },
+		})
+
+		rerender({ value: 'b' })
+		unmount()
+
+		act(() => {
+			vi.advanceTimersByTime(DEBOUNCE_DELAY)
+		})
+
+		expect(result.current).toBe('a')
+	})
+
+	it.each<[string, { id: number } | number[] | number, { id: number } | number[] | number]>([
+		['objects by reference', { id: 1 }, { id: 2 }],
+		['arrays', [1, 2], [3, 4]],
+		['numbers', 10, 20],
+	])('should debounce %s', (_label, initialValue, nextValue) => {
+		const { result, rerender } = renderHook(({ value }) => useDebounce(value, DEBOUNCE_DELAY), {
+			initialProps: { value: initialValue },
+		})
+
+		rerender({ value: nextValue })
+
+		expect(result.current).toEqual(initialValue)
+
+		act(() => {
+			vi.advanceTimersByTime(DEBOUNCE_DELAY)
+		})
+
+		expect(result.current).toEqual(nextValue)
+	})
 })

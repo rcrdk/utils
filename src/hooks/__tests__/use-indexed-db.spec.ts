@@ -113,4 +113,44 @@ describe('UseIndexedDB', () => {
 
 		unmount()
 	})
+
+	it('should upsert a record when the primary key already exists', async () => {
+		const { result, unmount } = await renderReadyIndexedDB()
+
+		const key = await result.current.db.add('chat-messages', { text: 'Original' })
+		await result.current.db.upsert('chat-messages', { id: key, text: 'Upserted via duplicate key' })
+
+		const item = await result.current.db.getItem<{ text: string }>('chat-messages', key!)
+
+		expect(item?.text).toBe('Upserted via duplicate key')
+
+		unmount()
+	})
+
+	it('should return undefined for a missing key', async () => {
+		const { result, unmount } = await renderReadyIndexedDB()
+
+		const item = await result.current.db.getItem('chat-messages', 'missing-key')
+
+		expect(item).toBeUndefined()
+
+		unmount()
+	})
+
+	it('should share the same database across multiple hook instances', async () => {
+		const firstHook = await renderReadyIndexedDB()
+		const secondHook = renderHook(() => useIndexedDB())
+
+		await waitFor(() => {
+			expect(secondHook.result.current.isDatabaseReady).toBe(true)
+		})
+
+		const key = await firstHook.result.current.db.add('chat-messages', { text: 'shared-db' })
+		const item = await secondHook.result.current.db.getItem<{ text: string }>('chat-messages', key!)
+
+		expect(item?.text).toBe('shared-db')
+
+		firstHook.unmount()
+		secondHook.unmount()
+	})
 })

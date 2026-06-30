@@ -107,4 +107,35 @@ describe('UseGeolocation', () => {
 		expect(getCurrentPosition).not.toHaveBeenCalled()
 		expect(consoleError).toHaveBeenCalledWith('Failed to retrieve location', 'Geolocation is not supported')
 	})
+
+	it('should format negative coordinates as strings', async () => {
+		mockGeolocationSuccess({ latitude: -33.8688, longitude: 151.2093 })
+
+		const { result } = renderGeolocationHook()
+
+		requestLocation(result)
+
+		await waitFor(() => {
+			expect(result.current.location).toEqual({ lat: '-33.8688', lng: '151.2093' })
+		})
+	})
+
+	it('should ignore subsequent requests after the first successful call', async () => {
+		mockGeolocationSuccess({ latitude: 1, longitude: 2 })
+
+		const { result } = renderGeolocationHook()
+
+		requestLocation(result)
+
+		await waitFor(() => {
+			expect(result.current.location).toEqual({ lat: '1', lng: '2' })
+		})
+
+		mockGeolocationSuccess({ latitude: 9, longitude: 9 })
+
+		requestLocation(result)
+
+		expect(getCurrentPosition).toHaveBeenCalledTimes(1)
+		expect(result.current.location).toEqual({ lat: '1', lng: '2' })
+	})
 })

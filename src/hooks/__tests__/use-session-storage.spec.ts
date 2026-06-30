@@ -147,4 +147,24 @@ describe('UseSessionStorage', () => {
 		expect(sessionStorage.getItem(firstKey)).toBe(JSON.stringify(TEST_VALUE))
 		expect(sessionStorage.getItem(secondKey)).toBe(JSON.stringify({ ...TEST_VALUE, page: 3 }))
 	})
+
+	it('should overwrite an existing stored value on save', () => {
+		sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify({ query: 'old', page: 1 }))
+
+		const { result } = renderSessionStorageHook()
+
+		act(() => {
+			result.current.saveSessionValue(TEST_VALUE)
+		})
+
+		expect(result.current.getSessionValue()).toEqual(TEST_VALUE)
+	})
+
+	it('should return null when stored JSON is a primitive instead of an object', () => {
+		sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify('plain-string'))
+
+		const { result } = renderSessionStorageHook()
+
+		expect(result.current.getSessionValue()).toBeNull()
+	})
 })

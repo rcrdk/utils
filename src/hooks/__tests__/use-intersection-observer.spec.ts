@@ -96,4 +96,90 @@ describe('UseIntersectionObserver', () => {
 
 		expect(observerInstance?.disconnect).toHaveBeenCalledTimes(1)
 	})
+
+	it('should pass observer options to IntersectionObserver', () => {
+		const root = document.createElement('div')
+		const rootMargin = '10px 0px'
+		const threshold = 0.5
+
+		let capturedOptions: IntersectionObserverInit | undefined
+
+		class OptionsCapturingObserver {
+			observe = vi.fn()
+			disconnect = vi.fn()
+
+			constructor(_callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+				capturedOptions = options
+			}
+		}
+
+		vi.stubGlobal('IntersectionObserver', OptionsCapturingObserver)
+
+		renderHook(() =>
+			useIntersectionObserver({
+				ref: createElementRef(),
+				root,
+				rootMargin,
+				threshold,
+			}),
+		)
+
+		expect(capturedOptions).toEqual({ root, rootMargin, threshold })
+	})
+
+	it('should set "isIntersecting" back to false when the element leaves the viewport', () => {
+		const { result } = renderHook(() => useIntersectionObserver(defaultParams))
+
+		const observerInstance = observerInstances.at(0)
+
+		act(() => {
+			observerInstance?.trigger(true)
+		})
+
+		expect(result.current.isIntersecting).toBe(true)
+
+		act(() => {
+			observerInstance?.trigger(false)
+		})
+
+		expect(result.current.isIntersecting).toBe(false)
+	})
+
+	it('should reconnect when "enabled" toggles from false to true', () => {
+		const { rerender } = renderHook(({ enabled }) => useIntersectionObserver({ ...defaultParams, enabled }), {
+			initialProps: { enabled: false },
+		})
+
+		expect(observerInstances).toHaveLength(0)
+
+		rerender({ enabled: true })
+
+		expect(observerInstances).toHaveLength(1)
+		expect(observerInstances.at(0)?.observe).toHaveBeenCalledWith(defaultParams.ref.current)
+	})
+
+	it('should not observe when "ref.current" is null', () => {
+		const ref: RefObject<Element | null> = { current: null }
+
+		renderHook(() => useIntersectionObserver({ ref }))
+
+		expect(observerInstances).toHaveLength(0)
+	})
+
+	it('should reconnect when the ref object changes to a different element', () => {
+		const firstElement = document.createElement('div')
+		const secondElement = document.createElement('div')
+
+		const { rerender } = renderHook(({ ref }) => useIntersectionObserver({ ref }), {
+			initialProps: { ref: { current: firstElement } as RefObject<Element> },
+		})
+
+		const firstObserver = observerInstances.at(0)
+
+		rerender({ ref: { current: secondElement } as RefObject<Element> })
+
+		expect(firstObserver?.disconnect).toHaveBeenCalledTimes(1)
+		expect(observerInstances).toHaveLength(2)
+		expect(observerInstances.at(1)?.observe).toHaveBeenCalledWith(secondElement)
+	})
 })

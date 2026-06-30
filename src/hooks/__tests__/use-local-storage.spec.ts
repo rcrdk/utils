@@ -141,4 +141,38 @@ describe('UseLocalStorage', () => {
 		expect(localStorage.getItem(firstKey)).toBe(JSON.stringify(TEST_VALUE))
 		expect(localStorage.getItem(secondKey)).toBe(JSON.stringify({ ...TEST_VALUE, page: 3 }))
 	})
+
+	it('should overwrite an existing stored value on save', () => {
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify({ query: 'old', page: 1 }))
+
+		const { result } = renderLocalStorageHook()
+
+		act(() => {
+			result.current.saveLocalValue(TEST_VALUE)
+		})
+
+		expect(result.current.getLocalValue()).toEqual(TEST_VALUE)
+	})
+
+	it('should return null when stored JSON is a primitive instead of an object', () => {
+		localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify('plain-string'))
+
+		const { result } = renderLocalStorageHook()
+
+		expect(result.current.getLocalValue()).toBeNull()
+	})
+
+	it('should keep callback references stable across rerenders', () => {
+		const { result, rerender } = renderLocalStorageHook()
+
+		const initialGet = result.current.getLocalValue
+		const initialSave = result.current.saveLocalValue
+		const initialClear = result.current.clearLocalValue
+
+		rerender()
+
+		expect(result.current.getLocalValue).toBe(initialGet)
+		expect(result.current.saveLocalValue).toBe(initialSave)
+		expect(result.current.clearLocalValue).toBe(initialClear)
+	})
 })
