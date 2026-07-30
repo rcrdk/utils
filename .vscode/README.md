@@ -40,7 +40,7 @@ Requires the [Prettier](https://marketplace.visualstudio.com/items?itemName=esbe
 ### Import aliases
 
 ```json
-"typescript.preferences.importModuleSpecifier": "non-relative"
+"js/ts.preferences.importModuleSpecifier": "non-relative"
 ```
 
 Auto-imports prefer path aliases (e.g. `@/components/foo`) over relative paths (`../../components/foo`). Works best when `paths` is configured in `tsconfig.json`.
