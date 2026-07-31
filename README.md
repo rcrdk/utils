@@ -58,7 +58,7 @@ src/
 | [Sentry](./src/lib/sentry/README.md)     | Error reporting and Sentry SDK configuration                                                        |
 | [Config](./src/config/README.md)         | Shared constants — auth route paths and IndexedDB store config                                      |
 | [DX](./README-DX.md)                     | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup   |
-| [Agents setup](./README-AGENTS.md)       | AI agent setup — rules, slash commands, symlinks, and `agents/` directory layout                 |
+| [Agents setup](./README-AGENTS.md)       | AI agent setup — rules, slash commands, symlinks, and `agents/` directory layout                    |
 | [Agent guide](./AGENTS.md)               | Agent guide — project conventions, commands, and Next.js docs index                                 |
 
 ## Conventions

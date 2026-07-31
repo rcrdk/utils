@@ -49,14 +49,14 @@ In CI (`CI=true`), the script exits immediately and does nothing.
 
 ## Key files
 
-| File                                       | Purpose                                                                                   |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| [AGENTS.md](./AGENTS.md)                   | Primary guide for AI agents: conventions, project structure, do/don't, Next.js docs index |
-| [agents/rules/](./agents/rules/)           | Modular coding rules (TypeScript, React, imports, etc.)                                   |
-| [agents/commands.md](./agents/commands.md)   | pnpm scripts and git commit format                                                        |
+| File                                       | Purpose                                                                                     |
+| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| [AGENTS.md](./AGENTS.md)                   | Primary guide for AI agents: conventions, project structure, do/don't, Next.js docs index   |
+| [agents/rules/](./agents/rules/)           | Modular coding rules (TypeScript, React, imports, etc.)                                     |
+| [agents/commands.md](./agents/commands.md) | pnpm scripts and git commit format                                                          |
 | [agents/commands/](./agents/commands/)     | Cursor slash commands (`/rcrdk-commit-unstaged`, `/rcrdk-review-rules`, `/rcrdk-fix-tests`) |
-| [agents/README.md](./agents/README.md)       | Index of all rules with descriptions                                                      |
-| [README-DX.md](./README-DX.md)             | Linting, formatting, Husky hooks, and editor setup                                        |
+| [agents/README.md](./agents/README.md)     | Index of all rules with descriptions                                                        |
+| [README-DX.md](./README-DX.md)             | Linting, formatting, Husky hooks, and editor setup                                          |
 
 ## Next.js documentation
 
@@ -88,11 +88,11 @@ Cursor's **Generate commit message** reads `.cursorrules`, which symlinks to `ag
 
 ## Troubleshooting
 
-| Problem                                     | Fix                                                                 |
-| ------------------------------------------- | ------------------------------------------------------------------- |
-| Rules not showing in Cursor                   | Run `pnpm setup:agent-links` and reload the window                  |
-| Slash commands not showing in Cursor          | Run `pnpm setup:agent-links` and reload the window                  |
-| `.cursor/rules exists and is not a symlink`     | Remove the directory manually, then re-run `pnpm setup:agent-links` |
+| Problem                                        | Fix                                                                 |
+| ---------------------------------------------- | ------------------------------------------------------------------- |
+| Rules not showing in Cursor                    | Run `pnpm setup:agent-links` and reload the window                  |
+| Slash commands not showing in Cursor           | Run `pnpm setup:agent-links` and reload the window                  |
+| `.cursor/rules exists and is not a symlink`    | Remove the directory manually, then re-run `pnpm setup:agent-links` |
 | `.cursor/commands exists and is not a symlink` | Remove the directory manually, then re-run `pnpm setup:agent-links` |
-| `CLAUDE.md` out of date                     | It symlinks to `AGENTS.md` — edit `AGENTS.md` instead               |
-| Symlinks missing after clone                | Expected — run `pnpm setup:agent-links` or `pnpm dev`               |
+| `CLAUDE.md` out of date                        | It symlinks to `AGENTS.md` — edit `AGENTS.md` instead               |
+| Symlinks missing after clone                   | Expected — run `pnpm setup:agent-links` or `pnpm dev`               |

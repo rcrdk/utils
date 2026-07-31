@@ -33,11 +33,11 @@ pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, agents/ski
 
 Project slash commands live in [agents/commands/](commands/) and are wired into Cursor via `.cursor/commands`:
 
-| Command | Description |
-| --- | --- |
+| Command                  | Description                                                                                   |
+| ------------------------ | --------------------------------------------------------------------------------------------- |
 | `/rcrdk-commit-unstaged` | Commit staged files first, then unstaged/untracked as small layer-bucket Conventional Commits |
-| `/rcrdk-review-rules` | Review branch changes against project rules; summarize fixes; ask before implementing |
-| `/rcrdk-fix-tests` | Fix broken tests (tests only); log-scoped or branch-aware discovery |
+| `/rcrdk-review-rules`    | Review branch changes against project rules; summarize fixes; ask before implementing         |
+| `/rcrdk-fix-tests`       | Fix broken tests (tests only); log-scoped or branch-aware discovery                           |
 
 ## Git
 
