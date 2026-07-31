@@ -1,5 +1,5 @@
 ---
-description: Magic numbers, named return values, and named conditions
+description: Magic numbers, ClassName constants, named return values, and named conditions
 alwaysApply: true
 ---
 
@@ -15,18 +15,26 @@ When a function or component contains magic numbers, extract them as constants a
 - Default values: `const MAX_IMAGES = 4`
 - Configuration values: `const DEFAULT_TIMEOUT = 3000`
 
-- Configuration values: `const DEFAULT_TIMEOUT = 3000`
-
 This applies even when the value is used only once — magic numbers and non-obvious literals always deserve a named constant.
 
-### Single-use literals
+### ClassName constants
 
-Do **not** extract a constant used only once when the value is already self-explanatory at the use site (class names, simple strings, obvious booleans).
+Extract Tailwind/class strings to `SCREAMING_SNAKE_CASE` **only when the same string is used more than once in the same file**.
+
+- Keep single-use class strings inline on `className`.
+- Do **not** wrap a static single-use class in `cn()`.
+- Inline classes work better with Tailwind IntelliSense, sorting, hover previews.
+
+**Exception:** magic numbers and non-obvious literals still get named constants even when used once — this relaxation applies to **class strings only**.
 
 - ✅ Good:
 
   ```tsx
-  <Text className={cn('font-medium', className)} />
+  const INFO_ICON_CLASSNAME = 'text-subtitle size-4.5 shrink-0'
+
+  <FilledMapPinIcon className={INFO_ICON_CLASSNAME} />
+  <FilledMapPinIcon className={INFO_ICON_CLASSNAME} />
+  <Text className="font-medium" />
   <TooltipAbsolute className="z-50 h-auto max-w-sm justify-center py-2.75 text-center break-words" />
   <span className={cn(hasFilterGap && 'mt-2')} />
 
@@ -38,11 +46,10 @@ Do **not** extract a constant used only once when the value is already self-expl
 
   ```tsx
   const RESUME_TEXT_CLASSNAME = 'font-medium'
-  const TOOLTIP_CONTENT_CLASSNAME = 'z-50 h-auto max-w-sm justify-center py-2.75 text-center break-words'
-  const FILTER_SEGMENT_GAP_CLASSNAME = 'mt-2'
 
   <Text className={cn(RESUME_TEXT_CLASSNAME, className)} />
-  <span className={cn(hasFilterGap && FILTER_SEGMENT_GAP_CLASSNAME)} />
+  <Text className={cn('font-medium')} />
+  <span className={cn('mt-2')} />
 
   if (value >= 1_000_000) return `${value / 1_000_000}mi`
   ```

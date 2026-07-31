@@ -23,11 +23,21 @@ pnpm test:watch   # Vitest watch mode (alias)
 
 ## Agents
 
-After cloning, create local symlinks for Cursor and Claude rules (also runs automatically via `predev`):
+After cloning, create local symlinks for Cursor and Claude rules, skills, and slash commands (also runs automatically via `predev`):
 
 ```bash
-pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules and agents/skills
+pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, agents/skills, and agents/commands
 ```
+
+### Cursor slash commands
+
+Project slash commands live in [agents/commands/](commands/) and are wired into Cursor via `.cursor/commands`:
+
+| Command | Description |
+| --- | --- |
+| `/rcrdk-commit-unstaged` | Commit staged files first, then unstaged/untracked as small layer-bucket Conventional Commits |
+| `/rcrdk-review-rules` | Review branch changes against project rules; summarize fixes; ask before implementing |
+| `/rcrdk-fix-tests` | Fix broken tests (tests only); log-scoped or branch-aware discovery |
 
 ## Git
 

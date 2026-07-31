@@ -186,12 +186,14 @@ After cloning, run `pnpm dev` or `pnpm setup:agent-links` locally. Agent symlink
 agents/
 ├── rules/          # Source of truth for coding rules (.mdc)
 ├── skills/         # Shared agent skills
+├── commands/       # Cursor slash commands
 ├── README.md       # Rules index
-└── commands.md     # Command reference
+└── commands.md     # pnpm and git command reference
 
 .cursor/            # generated symlinks
 ├── rules -> ../agents/rules
-└── skills -> ../agents/skills
+├── skills -> ../agents/skills
+└── commands -> ../agents/commands
 
 .claude/            # generated symlinks
 ├── rules -> ../agents/rules
@@ -200,7 +202,8 @@ agents/
 
 - **[agents/README.md](agents/README.md)** - Rules index
 - **[agents/rules/](agents/rules/)** - Modular engineering rules
-- **[agents/commands.md](agents/commands.md)** - Complete command reference
+- **[agents/commands/](agents/commands/)** - Cursor slash commands
+- **[agents/commands.md](agents/commands.md)** - Complete pnpm and git command reference
 - **[README-DX.md](README-DX.md)** - Husky, ESLint, Prettier, and editor setup
 - **[README-AGENTS.md](README-AGENTS.md)** - AI agent setup and symlink guide
 

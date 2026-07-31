@@ -58,7 +58,7 @@ src/
 | [Sentry](./src/lib/sentry/README.md)     | Error reporting and Sentry SDK configuration                                                        |
 | [Config](./src/config/README.md)         | Shared constants — auth route paths and IndexedDB store config                                      |
 | [DX](./README-DX.md)                     | Developer experience — ESLint, Prettier, Husky, lint-staged, commitlint, TypeScript, editor setup   |
-| [Agents setup](./README-AGENTS.md)       | AI agent setup — rules, symlinks, and `agents/` directory layout                                    |
+| [Agents setup](./README-AGENTS.md)       | AI agent setup — rules, slash commands, symlinks, and `agents/` directory layout                 |
 | [Agent guide](./AGENTS.md)               | Agent guide — project conventions, commands, and Next.js docs index                                 |
 
 ## Conventions
@@ -68,4 +68,4 @@ src/
 - **Imports**: `@/` alias for paths under `src/`
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): subject`)
 
-Coding rules live in [agents/rules/](./agents/rules/). After cloning, run `pnpm setup:agent-links` or `pnpm dev` to wire them into Cursor and Claude Code locally.
+Coding rules and slash commands live in [agents/rules/](./agents/rules/) and [agents/commands/](./agents/commands/). After cloning, run `pnpm setup:agent-links` or `pnpm dev` to wire them into Cursor locally.
