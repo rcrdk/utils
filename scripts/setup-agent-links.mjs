@@ -33,9 +33,9 @@ const log = {
 		console.log(
 			`  ${fmt(styles.yellow, '↻')} ${fmt(styles.cyan, link)} ${fmt(styles.dim, '→')} ${fmt(styles.dim, target)}`,
 		),
-	staleRemoved: (count, label) =>
+	staleRemoved: (count, label, path) =>
 		console.log(
-			`  ${fmt(styles.yellow, '!')} removed ${count} stale git index ${label} under ${fmt(styles.cyan, '.cursor/rules')}`,
+			`  ${fmt(styles.yellow, '!')} removed ${count} stale git index ${label} under ${fmt(styles.cyan, path)}`,
 		),
 	error: (message) => console.error(`\n${fmt(styles.red, '✗')} ${fmt(styles.bold, message)}\n`),
 	done: ({ created, updated, ok }) => {
@@ -63,6 +63,7 @@ const ROOT = join(fileURLToPath(new URL('.', import.meta.url)), '..')
 const LINKS = [
 	{ link: '.cursor/rules', target: '../agents/rules' },
 	{ link: '.cursor/skills', target: '../agents/skills' },
+	{ link: '.cursor/commands', target: '../agents/commands' },
 	{ link: '.claude/rules', target: '../agents/rules' },
 	{ link: '.claude/skills', target: '../agents/skills' },
 	{ link: 'CLAUDE.md', target: 'AGENTS.md' },
@@ -104,17 +105,21 @@ const setupLink = (relativeLink, relativeTarget) => {
 }
 
 const removeStaleGitIndexEntries = () => {
-	const listResult = spawnSync('git', ['ls-files', '.cursor/rules'], { cwd: ROOT, encoding: 'utf8' })
+	const stalePaths = ['.cursor/rules', '.cursor/commands']
 
-	if (listResult.status !== 0) return
+	for (const stalePath of stalePaths) {
+		const listResult = spawnSync('git', ['ls-files', stalePath], { cwd: ROOT, encoding: 'utf8' })
 
-	const trackedFiles = listResult.stdout.trim().split('\n').filter(Boolean)
-	if (trackedFiles.length === 0) return
+		if (listResult.status !== 0) continue
 
-	for (const file of trackedFiles) spawnSync('git', ['update-index', '--force-remove', file], { cwd: ROOT })
+		const trackedFiles = listResult.stdout.trim().split('\n').filter(Boolean)
+		if (trackedFiles.length === 0) continue
 
-	const entryLabel = trackedFiles.length === 1 ? 'entry' : 'entries'
-	log.staleRemoved(trackedFiles.length, entryLabel)
+		for (const file of trackedFiles) spawnSync('git', ['update-index', '--force-remove', file], { cwd: ROOT })
+
+		const entryLabel = trackedFiles.length === 1 ? 'entry' : 'entries'
+		log.staleRemoved(trackedFiles.length, entryLabel, stalePath)
+	}
 }
 
 log.title()
