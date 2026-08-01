@@ -15,8 +15,10 @@
 		"test": "vitest",
 		"test:run": "vitest run",
 		"test:watch": "vitest watch",
-		"prepare": "husky",
-		"setup:agent-links": "node scripts/setup-agent-links.mjs"
+		"prepare": "pnpm setup:submodules && husky",
+		"setup:agent-links": "node scripts/setup-agent-links.mjs",
+		"setup:submodules": "node scripts/setup-submodules.mjs",
+		"setup:agents": "pnpm setup:submodules && pnpm setup:agent-links"
 	},
 	"dependencies": {
 		"@radix-ui/react-checkbox": "1.3.5",

@@ -7,7 +7,6 @@ Use Conventional Commits. Messages are validated by commitlint on `commit-msg`.
 ## Header (subject line)
 
 - Format: `type(scope): subject` or `type: subject`
-- Max **100 characters**
 - Imperative mood, lowercase subject, no trailing period
 - Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`, `wip`
 

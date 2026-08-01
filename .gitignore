@@ -49,3 +49,5 @@ next-env.d.ts
 .claude/skills
 CLAUDE.md
 .cursorrules
+agents/rules/*.mdc
+agents/commands/rcrdk-*.md

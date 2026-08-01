@@ -6,7 +6,7 @@ This project includes configuration for AI coding assistants (Cursor, Claude Cod
 
 Cursor reads rules from `.cursor/rules/`. Claude Code reads from `.claude/rules/`. Both tools also look for root-level files like `AGENTS.md` and `.cursorrules`.
 
-Rather than duplicating content in each location, the source of truth stays in `agents/` and `AGENTS.md`. The `setup:agent-links` script creates symlinks so every tool reads the same files.
+Rather than duplicating content in each location, the source of truth stays in `agents/` and `AGENTS.md`. Coding rules live in the **[agent-kit](https://github.com/rcrdk/agent-kit)** submodule (`.agents/agent-kit`). The `setup:agent-links` script creates symlinks so every tool reads the same files.
 
 Generated symlinks are **not committed** — they are recreated locally after cloning.
 
@@ -16,15 +16,19 @@ Generated symlinks are **not committed** — they are recreated locally after cl
 AGENTS.md                          # Main agent guide (project context, conventions, Next.js docs index)
 README-AGENTS.md                   # This file — human-readable setup guide
 agents/
-├── rules/                         # Cursor/Claude rules (.mdc files) — source of truth
+├── rules/                         # Generated symlinks → .agents/agent-kit (shared + utils overrides)
 ├── skills/                        # Shared agent skills (optional)
-├── commands/                      # Cursor slash commands (source of truth)
+├── commands/                      # Generated symlinks → .agents/agent-kit/commands/
 ├── commands.md                    # pnpm command reference
 ├── commit-messages.cursorrules    # Commit message rules for SCM "Generate commit message"
 └── README.md                      # Rules index
 
 scripts/
-└── setup-agent-links.mjs          # Creates local symlinks (skipped in CI)
+├── setup-agent-links.mjs          # Creates local symlinks (skipped in CI)
+└── setup-submodules.mjs           # git submodule update --init --recursive (skipped in CI)
+
+.agents/
+└── agent-kit/                     # Shared Cursor/Claude rules ([rcrdk/agent-kit](https://github.com/rcrdk/agent-kit))
 
 # Generated locally (gitignored):
 .cursor/rules    -> ../agents/rules
@@ -39,8 +43,8 @@ CLAUDE.md        -> AGENTS.md
 ## First-time setup
 
 ```bash
-pnpm install
-pnpm setup:agent-links
+pnpm install          # runs setup:submodules via prepare
+pnpm setup:agents     # submodules + agent symlinks
 ```
 
 Or run `pnpm dev` — the `predev` script runs `setup:agent-links` automatically.
@@ -49,14 +53,14 @@ In CI (`CI=true`), the script exits immediately and does nothing.
 
 ## Key files
 
-| File                                       | Purpose                                                                                     |
-| ------------------------------------------ | ------------------------------------------------------------------------------------------- |
-| [AGENTS.md](./AGENTS.md)                   | Primary guide for AI agents: conventions, project structure, do/don't, Next.js docs index   |
-| [agents/rules/](./agents/rules/)           | Modular coding rules (TypeScript, React, imports, etc.)                                     |
-| [agents/commands.md](./agents/commands.md) | pnpm scripts and git commit format                                                          |
-| [agents/commands/](./agents/commands/)     | Cursor slash commands (`/rcrdk-commit-unstaged`, `/rcrdk-review-rules`, `/rcrdk-fix-tests`) |
-| [agents/README.md](./agents/README.md)     | Index of all rules with descriptions                                                        |
-| [README-DX.md](./README-DX.md)             | Linting, formatting, Husky hooks, and editor setup                                          |
+| File                                       | Purpose                                                                                   |
+| ------------------------------------------ | ----------------------------------------------------------------------------------------- |
+| [AGENTS.md](./AGENTS.md)                   | Primary guide for AI agents: conventions, project structure, do/don't, Next.js docs index |
+| [agents/rules/](./agents/rules/)           | Generated rule symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit) instead    |
+| [agents/commands.md](./agents/commands.md) | pnpm scripts and git commit format                                                        |
+| [agents/commands/](./agents/commands/)     | Generated slash command symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)   |
+| [agents/README.md](./agents/README.md)     | Index of all rules with descriptions                                                      |
+| [README-DX.md](./README-DX.md)             | Linting, formatting, Husky hooks, and editor setup                                        |
 
 ## Next.js documentation
 
@@ -68,19 +72,19 @@ If docs are missing, run `pnpm install` to restore them.
 
 ## Editing rules
 
-1. Add or edit `.mdc` files in `agents/rules/` (see [agents/rules/cursor-rules.mdc](./agents/rules/cursor-rules.mdc) for format).
-2. Update [agents/README.md](./agents/README.md) if you add a new rule.
-3. Symlinks pick up changes immediately — no need to re-run `setup:agent-links` unless a symlink is broken.
+1. Edit rules in [agent-kit](https://github.com/rcrdk/agent-kit) (`rules/shared/` or `rules/utils/`). Run `pnpm setup:agent-links` after updating the submodule.
+2. Update [agents/README.md](./agents/README.md) if you add a new rule file.
+3. Re-run `pnpm setup:agent-links` after pulling agent-kit changes that add or rename rules.
 
 To add a rule that applies only to certain files, set `globs` in the rule's YAML front matter. Use `alwaysApply: true` for rules that should apply in every conversation.
 
 ## Slash commands
 
-Cursor slash commands live in `agents/commands/` (source of truth). The setup script symlinks `.cursor/commands` to that folder.
+Edit slash commands in [agent-kit](https://github.com/rcrdk/agent-kit) (`commands/`). `setup-agent-links` symlinks them into `agents/commands/` and `.cursor/commands`.
 
-1. Add or edit `.md` files in `agents/commands/` with YAML front matter (`name`, `description`).
-2. Update [agents/README.md](./agents/README.md) and [agents/commands.md](./agents/commands.md) when you add a new command.
-3. Run `pnpm setup:agent-links` if the symlink is missing; reload Cursor to pick up new commands.
+1. Add or edit `.md` files in agent-kit with YAML front matter (`name`, `description`).
+2. Update [agents/README.md](./agents/README.md) when you add a new command.
+3. Re-run `pnpm setup:agent-links` after pulling agent-kit changes that add or rename commands.
 
 ## Commit messages
 

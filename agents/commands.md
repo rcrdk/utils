@@ -23,21 +23,25 @@ pnpm test:watch   # Vitest watch mode (alias)
 
 ## Agents
 
-After cloning, create local symlinks for Cursor and Claude rules, skills, and slash commands (also runs automatically via `predev`):
+After cloning, init submodules and create local symlinks for Cursor and Claude rules, skills, and slash commands (`prepare` / `predev` run these automatically when not in CI):
 
 ```bash
-pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, agents/skills, and agents/commands
+pnpm setup:submodules   # git submodule update --init --recursive
+pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, .agents/skills, and agents/commands
+pnpm setup:agents       # Both of the above
 ```
 
 ### Cursor slash commands
 
-Project slash commands live in [agents/commands/](commands/) and are wired into Cursor via `.cursor/commands`:
+Project slash commands are generated from [agent-kit](https://github.com/rcrdk/agent-kit) into [agents/commands/](commands/) and wired into Cursor via `.cursor/commands`:
 
 | Command                  | Description                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
 | `/rcrdk-commit-unstaged` | Commit staged files first, then unstaged/untracked as small layer-bucket Conventional Commits |
+| `/rcrdk-index-codebase`  | Index or reindex with Codebase Memory MCP; verify install and gitignore `.codebase-memory/`   |
 | `/rcrdk-review-rules`    | Review branch changes against project rules; summarize fixes; ask before implementing         |
 | `/rcrdk-fix-tests`       | Fix broken tests (tests only); log-scoped or branch-aware discovery                           |
+| `/rcrdk-setup-agent-kit` | Bootstrap agent-kit in a repo — submodule, scripts, gitignore, symlinks                       |
 
 ## Git
 
@@ -45,7 +49,6 @@ Commits use Conventional Commits and are validated by commitlint on `commit-msg`
 
 **Format:** `type(scope): subject` or `type: subject`
 
-- **Header** (first `-m`): max **100 characters** (`header-max-length` when configured)
 - Allowed types: `build`, `chore`, `ci`, `docs`, `feat`, `fix`, `perf`, `refactor`, `revert`, `style`, `test`, `wip`
 
 When the change centers on a **component or function**, use a **scope** in **camelCase** (the export name). For broader areas (routes, modules, config), use **kebab-case** or omit the scope.

@@ -178,15 +178,20 @@ export function Button({ label, onPress }: Readonly<ButtonProps>) {
 
 ## Extended Documentation
 
-Agent rules and settings are centralized in `agents/`. Symlinks in `.cursor/` and `.claude/` are generated locally and not committed to git.
+Agent rules and settings come from **[agent-kit](https://github.com/rcrdk/agent-kit)** (`.agents/agent-kit`). Symlinks in `agents/`, `.cursor/`, and `.claude/` are generated locally and not committed to git.
 
-After cloning, run `pnpm dev` or `pnpm setup:agent-links` locally. Agent symlinks are recreated automatically on `pnpm dev` (skipped when `CI` is set).
+After cloning, run `pnpm setup:agents` or `pnpm dev` locally. Agent symlinks are recreated automatically on `pnpm dev` (skipped when `CI` is set).
 
 ```
+.agents/agent-kit/  # submodule — edit rules and commands here
+├── rules/shared/
+├── rules/utils/
+└── commands/
+
 agents/
-├── rules/          # Source of truth for coding rules (.mdc)
-├── skills/         # Shared agent skills
-├── commands/       # Cursor slash commands
+├── rules/          # generated symlinks → agent-kit rules
+├── commands/       # generated symlinks → agent-kit commands
+├── skills/         # optional project-local skills
 ├── README.md       # Rules index
 └── commands.md     # pnpm and git command reference
 
@@ -201,8 +206,8 @@ agents/
 ```
 
 - **[agents/README.md](agents/README.md)** - Rules index
-- **[agents/rules/](agents/rules/)** - Modular engineering rules
-- **[agents/commands/](agents/commands/)** - Cursor slash commands
+- **[agents/rules/](agents/rules/)** - Generated rule symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
+- **[agents/commands/](agents/commands/)** - Generated slash command symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
 - **[agents/commands.md](agents/commands.md)** - Complete pnpm and git command reference
 - **[README-DX.md](README-DX.md)** - Husky, ESLint, Prettier, and editor setup
 - **[README-AGENTS.md](README-AGENTS.md)** - AI agent setup and symlink guide
