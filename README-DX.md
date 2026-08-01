@@ -148,6 +148,8 @@ Prettier reads [`.editorconfig`](./.editorconfig) automatically (indent style, E
 | `prettier-plugin-tailwindcss`         | Sort Tailwind classes; works inside `cn()` and `cva()`      |
 | `prettier-plugin-sort-json`           | Sort JSON keys                                              |
 
+Tailwind class sorting uses built-in `class` / `className`, plus `classes` and `/.*ClassName.*/` in `tailwindAttributes` for custom props (`containerClassName`, `classNameCenter`, etc.). Regex patterns use `/pattern/` strings ([plugin docs](https://github.com/tailwindlabs/prettier-plugin-tailwindcss#using-regex-patterns)).
+
 ---
 
 ## TypeScript
