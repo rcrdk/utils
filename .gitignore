@@ -53,3 +53,6 @@ agents/rules/*.mdc
 agents/commands/rcrdk-*.md
 agents/skills/*
 !agents/skills/README.md
+
+# Codebase Memory MCP (local index — see /rcrdk-index-codebase)
+.codebase-memory/
