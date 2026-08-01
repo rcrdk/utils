@@ -41,7 +41,8 @@ Project slash commands are generated from [agent-kit](https://github.com/rcrdk/a
 | `/rcrdk-index-codebase`  | Index or reindex with Codebase Memory MCP; verify install and gitignore `.codebase-memory/`   |
 | `/rcrdk-review-rules`    | Review branch changes against project rules; summarize fixes; ask before implementing         |
 | `/rcrdk-fix-tests`       | Fix broken tests (tests only); log-scoped or branch-aware discovery                           |
-| `/rcrdk-setup-agent-kit` | Bootstrap agent-kit in a repo — submodule, scripts, gitignore, symlinks                       |
+| `/rcrdk-setup-agent-kit` | Bootstrap or refresh agent-kit — submodule add/update, scripts, gitignore, symlinks           |
+| `/rcrdk-setup-dx`        | Install selected DX from rcrdk/utils — ESLint, Prettier, TS, EditorConfig, VS Code, Husky     |
 
 ## Git
 

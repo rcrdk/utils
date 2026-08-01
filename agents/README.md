@@ -14,7 +14,14 @@ Slash commands are generated from [agent-kit](https://github.com/rcrdk/agent-kit
 - [/rcrdk-index-codebase](commands/rcrdk-index-codebase.md) - Index or reindex project with Codebase Memory MCP; verify MCP install
 - [/rcrdk-review-rules](commands/rcrdk-review-rules.md) - Review branch changes against project rules; ask before implementing
 - [/rcrdk-fix-tests](commands/rcrdk-fix-tests.md) - Fix broken tests (tests only); branch-aware discovery
-- [/rcrdk-setup-agent-kit](commands/rcrdk-setup-agent-kit.md) - Bootstrap agent-kit in a repo — submodule, scripts, symlinks
+- [/rcrdk-setup-agent-kit](commands/rcrdk-setup-agent-kit.md) - Bootstrap or refresh agent-kit — submodule add/update, scripts, symlinks
+- [/rcrdk-setup-dx](commands/rcrdk-setup-dx.md) - Install selected DX from rcrdk/utils — ESLint, Prettier, TS, EditorConfig, VS Code, Husky
+
+## Required rules
+
+Non-overridable rules linked from agent-kit `rules/required/`:
+
+- [ask-before-commit](rules/ask-before-commit.mdc) - Never commit unless the user explicitly asks in the current turn
 
 ## Rules Index
 
