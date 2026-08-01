@@ -48,10 +48,12 @@ Auto-imports prefer path aliases (e.g. `@/components/foo`) over relative paths (
 ### Tailwind class attributes
 
 ```json
-"tailwindCSS.classAttributes": ["class", "className", "classNameCenter", "containerClassName", "classes"]
+"tailwindCSS.classAttributes": ["class", "classes", "className", ".*ClassName.*"]
 ```
 
-Tells Tailwind IntelliSense which JSX/HTML attributes hold class names. Add your own prop names here if you use custom wrappers.
+Tells Tailwind IntelliSense which JSX/HTML attributes hold class names. Explicit entries cover `class`, `classes`, and `className`. The `.*ClassName.*` pattern matches custom props such as `containerClassName`, `classNameCenter`, and other `*ClassName*` wrappers without listing each one.
+
+This setting is intended for HTML/JSX attribute names; regex support is unofficial and may change. For class strings inside helpers, use `classRegex` below. For TypeScript variables, prefer wrapping classes in `cn()` or `cva()`.
 
 ### Tailwind class regex
 
