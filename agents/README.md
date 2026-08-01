@@ -61,6 +61,7 @@ Prioritize functional tests over implementation tests. See [test-approach](rules
 
 ### Meta
 
+- [codebase-memory-first](rules/codebase-memory-first.mdc) - Consult Codebase Memory MCP before filesystem search or broad reads
 - [cursor-rules](rules/cursor-rules.mdc) - How to create and maintain Cursor rules
 - [package-installation](rules/package-installation.mdc) - Ask before adding, removing, or upgrading dependencies
 - [commit-messages](rules/commit-messages.mdc) - Conventional Commits format
