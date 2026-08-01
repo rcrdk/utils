@@ -74,6 +74,7 @@ const AGENT_KIT_PATH = '.agents/agent-kit'
 const AGENT_KIT_PROJECT = 'utils'
 const RULES_LINK_DIR = 'agents/rules'
 const COMMANDS_LINK_DIR = 'agents/commands'
+const SKILLS_LINK_DIR = 'agents/skills'
 
 const LINKS = [
 	{ link: '.cursor/rules', target: '../agents/rules' },
@@ -172,6 +173,7 @@ const setupAgentKitLinks = ({ linkDir, kitFolder, fileExtension, itemLabel, proj
 	const linkDirectoryPath = join(ROOT, linkDir)
 	const agentKitRootPath = join(ROOT, AGENT_KIT_PATH)
 	const sharedPath = join(agentKitRootPath, kitFolder, 'shared')
+	const requiredPath = join(agentKitRootPath, kitFolder, 'required')
 	const projectPath = projectAtRoot
 		? join(agentKitRootPath, kitFolder)
 		: join(agentKitRootPath, kitFolder, AGENT_KIT_PROJECT)
@@ -214,6 +216,14 @@ const setupAgentKitLinks = ({ linkDir, kitFolder, fileExtension, itemLabel, proj
 		}
 	}
 
+	const requiredFiles = listAgentKitFiles(requiredPath, fileExtension)
+
+	if (requiredFiles.length > 0) {
+		log.subtitle(`agent-kit ${itemLabel} required (${requiredFiles.length})`)
+
+		for (const fileName of requiredFiles) linkFile(fileName, 'required')
+	}
+
 	for (const entry of readdirSync(linkDirectoryPath, { withFileTypes: true })) {
 		if (entry.name === 'README.md') continue
 		if (!entry.isSymbolicLink()) continue
@@ -226,8 +236,58 @@ const setupAgentKitLinks = ({ linkDir, kitFolder, fileExtension, itemLabel, proj
 	}
 }
 
+const hasSkillFile = (directoryPath) => existsSync(join(directoryPath, 'SKILL.md'))
+
+const listSkillDirectories = (skillsDirectoryPath) => {
+	if (!existsSync(skillsDirectoryPath)) return []
+
+	return readdirSync(skillsDirectoryPath, { withFileTypes: true })
+		.filter((entry) => entry.isDirectory() && hasSkillFile(join(skillsDirectoryPath, entry.name)))
+		.map((entry) => entry.name)
+}
+
+const setupAgentKitSkillLinks = () => {
+	const skillsLinkDirectoryPath = join(ROOT, SKILLS_LINK_DIR)
+	const agentKitSkillsPath = join(ROOT, AGENT_KIT_PATH, 'skills')
+
+	if (!existsSync(join(ROOT, AGENT_KIT_PATH))) {
+		log.warn(`agent-kit not found at ${AGENT_KIT_PATH} — run pnpm setup:submodules`)
+		return
+	}
+
+	if (!existsSync(agentKitSkillsPath)) return
+
+	if (!existsSync(skillsLinkDirectoryPath)) mkdirSync(skillsLinkDirectoryPath, { recursive: true })
+
+	const skillNames = listSkillDirectories(agentKitSkillsPath)
+	if (skillNames.length === 0) return
+
+	log.subtitle(`agent-kit skills (${skillNames.length})`)
+
+	const expectedLinks = new Map()
+
+	for (const skillName of skillNames) {
+		const relativeLink = `${SKILLS_LINK_DIR}/${skillName}`
+		const relativeTarget = `../../${AGENT_KIT_PATH}/skills/${skillName}`
+
+		expectedLinks.set(relativeLink, relativeTarget)
+		setupManagedLink(relativeLink, relativeTarget)
+	}
+
+	for (const entry of readdirSync(skillsLinkDirectoryPath, { withFileTypes: true })) {
+		if (entry.name === 'README.md') continue
+		if (!entry.isSymbolicLink()) continue
+
+		const relativeLink = `${SKILLS_LINK_DIR}/${entry.name}`
+		if (expectedLinks.has(relativeLink)) continue
+
+		rmSync(join(skillsLinkDirectoryPath, entry.name))
+		log.linkRemoved(relativeLink)
+	}
+}
+
 const removeStaleGitIndexEntries = () => {
-	const stalePaths = ['.cursor/rules', '.cursor/commands', 'agents/rules', 'agents/commands']
+	const stalePaths = ['.cursor/rules', '.cursor/commands', '.cursor/skills', 'agents/rules', 'agents/commands', 'agents/skills']
 
 	for (const stalePath of stalePaths) {
 		const listResult = spawnSync('git', ['ls-files', stalePath], { cwd: ROOT, encoding: 'utf8' })
@@ -266,6 +326,7 @@ try {
 		itemLabel: 'commands',
 		projectAtRoot: true,
 	})
+	setupAgentKitSkillLinks()
 
 	removeStaleGitIndexEntries()
 

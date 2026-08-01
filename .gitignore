@@ -51,3 +51,5 @@ CLAUDE.md
 .cursorrules
 agents/rules/*.mdc
 agents/commands/rcrdk-*.md
+agents/skills/*
+!agents/skills/README.md
