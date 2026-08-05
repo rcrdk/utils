@@ -1,0 +1,6 @@
+{
+	"permissions": {
+		"allow": ["Bash(git status:*)", "Bash(git diff:*)", "Bash(git log:*)", "Bash(git branch:*)", "Glob", "Grep"],
+		"ask": ["Bash(git push:*)", "Bash(git commit:*)"]
+	}
+}

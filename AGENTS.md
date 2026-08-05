@@ -12,6 +12,19 @@ This project uses **Next.js 16.2.9** (App Router). Version-matched docs ship bun
 
 You are a senior engineer working on rcrdk/utils, a personal utilities collection with a Next.js 16 app shell. Prioritize type safety, small reviewable diffs, and existing project conventions.
 
+<!-- BEGIN:agent-kit-base -->
+
+## Engineering Principles
+
+- Do not preserve backward compatibility — remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations
+- Choose the simplest implementation that fully meets the current requirements — avoid speculative abstractions, configuration, and indirection
+- Grow the system in layers: start from the smallest version that works end to end, then add each new capability on top of a product that already works
+- Never trade a working product for unfinished complexity
+- Keep components modular and concerns clearly separated
+- Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability — do not reimplement common functionality without a clear reason
+- Lean on the dependencies already in the project before writing your own implementation or adding packages; check a library's docs and types before assuming it lacks a capability (adding a new dependency still needs approval — see [Ask first](#ask-first))
+- Make architectural decisions for the long term — do not accept a stopgap that only works for now and is meant to be replaced later
+
 ## Do
 
 - Use `import type { X }` for TypeScript type-only imports
@@ -20,7 +33,6 @@ You are a senior engineer working on rcrdk/utils, a personal utilities collectio
 - Use an object parameter when a function has three or more arguments
 - Prefer functional style: `const`, immutability, `map`/`filter`/`reduce`, and pure functions
 - Omit curly braces for single-statement blocks; use arrow implicit return for single-expression functions (not components)
-- Export utilities in `src/utils/` as `const` arrow functions — not in `src/app/`
 - Assign function results and complex conditions to `const` before returning or branching
 - Use `.at()` instead of bracket notation for array access
 - Use optional chaining when accessing nested properties that may be undefined
@@ -41,6 +53,7 @@ You are a senior engineer working on rcrdk/utils, a personal utilities collectio
 
 ## Testing
 
+- Tests run on **Vitest** — use its API, never mix runners
 - Prioritize functional tests (observable behavior) over implementation details
 - Use `it.each` for similar test cases
 - Reuse shared mocks from `@/mocks/` and `__mocks__` when available
@@ -49,7 +62,7 @@ You are a senior engineer working on rcrdk/utils, a personal utilities collectio
 
 ## Commands
 
-See [agents/commands.md](agents/commands.md) for the full reference. Key commands:
+This project uses **pnpm** and **Vitest**. See [agents/commands.md](agents/commands.md) for the full reference. Key commands:
 
 ```bash
 pnpm typecheck   # Type check
@@ -78,6 +91,74 @@ pnpm dev         # Dev server
 - Commit secrets or API keys
 - Force push to shared branches
 - Modify unrelated code in the same PR
+
+## PR Checklist
+
+- [ ] Commit includes scoped subject (when applicable) and valid type
+- [ ] Typecheck passes: `pnpm typecheck`
+- [ ] Lint passes: `pnpm lint`
+- [ ] Relevant tests pass: `pnpm test:run`
+- [ ] Diff is small and focused
+- [ ] No secrets committed
+
+## When Stuck
+
+- Ask a clarifying question before large speculative changes
+- Propose a short plan for complex tasks
+- Fix type errors before test failures
+- Read surrounding code and match existing patterns
+
+<!-- END:agent-kit-base -->
+
+<!-- BEGIN:agent-kit-rules -->
+
+## Rules
+
+Coding rules come from [agent-kit](https://github.com/rcrdk/agent-kit) and are symlinked into `agents/rules/`. Cursor loads them from `.cursor/rules`; the imports below load the always-on ones for Claude Code.
+
+@agents/rules/ask-before-commit.mdc
+@agents/rules/codebase-memory-first.mdc
+@agents/rules/commit-messages.mdc
+@agents/rules/deduplication.mdc
+@agents/rules/documentation.mdc
+@agents/rules/file-naming.mdc
+@agents/rules/package-installation.mdc
+@agents/rules/project-structure.mdc
+@agents/rules/security.mdc
+
+Read these when touching matching files:
+
+- [array-access](agents/rules/array-access.mdc) — `**/*.ts`, `**/*.tsx`
+- [barrel-exports](agents/rules/barrel-exports.mdc) — `**/index.ts`, `**/index.tsx`
+- [constants-and-variables](agents/rules/constants-and-variables.mdc) — `**/*.ts`, `**/*.tsx`
+- [control-flow](agents/rules/control-flow.mdc) — `**/*.ts`, `**/*.tsx`
+- [cursor-rules](agents/rules/cursor-rules.mdc) — `**/*.mdc`
+- [file-size-limits](agents/rules/file-size-limits.mdc) — `**/*.ts`, `**/*.tsx`
+- [function-parameters](agents/rules/function-parameters.mdc) — `**/*.ts`, `**/*.tsx`
+- [functional-programming](agents/rules/functional-programming.mdc) — `**/*.ts`, `**/*.tsx`
+- [imports](agents/rules/imports.mdc) — `**/*.ts`, `**/*.tsx`
+- [naming-conventions](agents/rules/naming-conventions.mdc) — `**/*.ts`, `**/*.tsx`
+- [optional-chaining](agents/rules/optional-chaining.mdc) — `**/*.ts`, `**/*.tsx`
+- [react-components](agents/rules/react-components.mdc) — `**/*.tsx`
+- [single-responsibility](agents/rules/single-responsibility.mdc) — `**/*.ts`, `**/*.tsx`
+- [strict-equality](agents/rules/strict-equality.mdc) — `**/*.ts`, `**/*.tsx`
+- [test-approach](agents/rules/test-approach.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-date-mocks](agents/rules/test-date-mocks.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-element-selection](agents/rules/test-element-selection.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-fixing](agents/rules/test-fixing.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-mocks](agents/rules/test-mocks.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-naming-and-structure](agents/rules/test-naming-and-structure.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-organization](agents/rules/test-organization.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [test-runner](agents/rules/test-runner.mdc) — `**/*.spec.ts`, `**/*.spec.tsx`
+- [type-imports](agents/rules/type-imports.mdc) — `**/*.ts`, `**/*.tsx`
+- [typescript](agents/rules/typescript.mdc) — `**/*.ts`, `**/*.tsx`
+- [utility-functions](agents/rules/utility-functions.mdc) — `src/utils/**/*`, `src/shared/utils/**/*`, `src/features/**/utils/**/*`
+
+<!-- END:agent-kit-rules -->
+
+## Project Rules
+
+- Export utilities in `src/utils/` as `const` arrow functions — not in `src/app/`
 
 ## Project Structure
 
@@ -160,32 +241,20 @@ export function Button({ label, onPress }: Readonly<ButtonProps>) {
 }
 ```
 
-## PR Checklist
-
-- [ ] Commit includes scoped subject (when applicable) and valid type
-- [ ] Typecheck passes: `pnpm typecheck`
-- [ ] Lint passes: `pnpm lint`
-- [ ] Relevant tests pass: `pnpm test:run`
-- [ ] Diff is small and focused
-- [ ] No secrets committed
-
-## When Stuck
-
-- Ask a clarifying question before large speculative changes
-- Propose a short plan for complex tasks
-- Fix type errors before test failures
-- Read surrounding code and match existing patterns
-
 ## Extended Documentation
 
 Agent rules and settings come from **[agent-kit](https://github.com/rcrdk/agent-kit)** (`.agents/agent-kit`). Symlinks in `agents/`, `.cursor/`, and `.claude/` are generated locally and not committed to git.
 
+The blocks between `<!-- BEGIN:agent-kit-base -->` / `<!-- END:agent-kit-base -->` and `<!-- BEGIN:agent-kit-rules -->` / `<!-- END:agent-kit-rules -->` above are injected by `setup:agent-links` from `.agents/agent-kit/` — **never edit them here**; edit agent-kit. Everything outside the markers is project-local.
+
+`scripts/setup-agent-links.mjs` is a stub; the linker lives in `.agents/agent-kit/scripts/link-agents.mjs`.
+
 After cloning, run `pnpm setup:agents` or `pnpm dev` locally. Agent symlinks are recreated automatically on `pnpm dev` (skipped when `CI` is set).
 
 ```
-.agents/agent-kit/  # submodule — edit rules and commands here
-├── rules/shared/
-├── rules/utils/
+.agents/agent-kit/  # submodule — edit rules, commands, and AGENTS.md base here
+├── rules/             # flat — every rule applies to every project
+├── agents-md/base.md  # shared AGENTS.md body — injected between markers
 └── commands/
 
 agents/

@@ -1,76 +1,24 @@
-# Utils Agent Documentation Index
+# Agent Documentation Index
 
-- **[../AGENTS.md](../AGENTS.md)** - Main guide (structure, tech stack, commands, examples)
-- **[commands.md](commands.md)** - pnpm and git command reference
-- **[commands/](commands/)** - Cursor slash commands (generated from [agent-kit](https://github.com/rcrdk/agent-kit))
-- **[../README-DX.md](../README-DX.md)** - Husky, ESLint, Prettier, TypeScript, and editor setup
-- **[../README-AGENTS.md](../README-AGENTS.md)** - AI agent setup and symlink guide
+- **[../AGENTS.md](../AGENTS.md)** — main guide (structure, tech stack, commands, examples); `CLAUDE.md` symlinks to it
+- **[commands.md](commands.md)** — package manager and git command reference
+- **[rules/](rules/)** — coding rules symlinked from [agent-kit](https://github.com/rcrdk/agent-kit)
+- **[commands/](commands/)** — slash commands symlinked from agent-kit
+- **[skills/](skills/)** — skills available to Cursor and Claude Code
 
-## Cursor slash commands
+## How agent context is wired
 
-Slash commands are generated from [agent-kit](https://github.com/rcrdk/agent-kit) (`commands/`) into [agents/commands/](commands/) and wired via `.cursor/commands` (`pnpm setup:agent-links`).
+| Surface        | Cursor                                                                    | Claude Code                                           |
+| -------------- | ------------------------------------------------------------------------- | ----------------------------------------------------- |
+| Rules          | `.cursor/rules` → `agents/rules/` (`.mdc` front matter drives activation) | imported from `AGENTS.md` — see its **Rules** section |
+| Main guide     | `AGENTS.md`                                                               | `CLAUDE.md` → `AGENTS.md`                             |
+| Slash commands | `.cursor/commands` → `agents/commands/`                                   | `.claude/commands` → `agents/commands/`               |
+| Skills         | `.cursor/skills`                                                          | `.claude/skills`                                      |
 
-- [/rcrdk-commit-unstaged](commands/rcrdk-commit-unstaged.md) - Commit staged files first, then unstaged/untracked as small layer-bucket Conventional Commits
-- [/rcrdk-index-codebase](commands/rcrdk-index-codebase.md) - Index or reindex project with Codebase Memory MCP; verify MCP install
-- [/rcrdk-review-rules](commands/rcrdk-review-rules.md) - Review branch changes against project rules; ask before implementing
-- [/rcrdk-fix-tests](commands/rcrdk-fix-tests.md) - Fix broken tests (tests only); branch-aware discovery
-- [/rcrdk-setup-agent-kit](commands/rcrdk-setup-agent-kit.md) - Bootstrap or refresh agent-kit — submodule add/update, scripts, symlinks
-- [/rcrdk-setup-dx](commands/rcrdk-setup-dx.md) - Install selected DX from rcrdk/utils — ESLint, Prettier, TS, EditorConfig, VS Code, Husky
+All symlinks are generated locally by the `setup:agent-links` script and are not committed.
 
-## Required rules
+## Editing
 
-Non-overridable rules linked from agent-kit `rules/required/`:
+Rules, slash commands, and the injected blocks in `AGENTS.md` come from [agent-kit](https://github.com/rcrdk/agent-kit) — edit them there, bump the submodule, then rerun `setup:agents`.
 
-- [ask-before-commit](rules/ask-before-commit.mdc) - Never commit unless the user explicitly asks in the current turn
-
-## Rules Index
-
-Rules live in [agents/rules/](rules/) (symlinks to [agent-kit](https://github.com/rcrdk/agent-kit)) and are wired via symlinks in `.cursor/rules` and `.claude/rules`.
-
-Run `pnpm dev` or `pnpm setup:agent-links` locally after cloning (skipped in CI).
-
-### TypeScript & Code Style
-
-- [type-imports](rules/type-imports.mdc) - Type-only imports
-- [typescript](rules/typescript.mdc) - Type safety conventions
-- [strict-equality](rules/strict-equality.mdc) - Prefer `===` and `!==`
-- [naming-conventions](rules/naming-conventions.mdc) - Naming props, constants, and variables
-- [function-parameters](rules/function-parameters.mdc) - Object params for functions with 3+ arguments
-- [constants-and-variables](rules/constants-and-variables.mdc) - Magic numbers, ClassName constants, named returns, and named conditions
-- [control-flow](rules/control-flow.mdc) - Early returns, single-statement blocks, no nested ternaries
-- [single-responsibility](rules/single-responsibility.mdc) - One responsibility per function
-- [deduplication](rules/deduplication.mdc) - Extract shared logic duplicated across functions
-- [functional-programming](rules/functional-programming.mdc) - Immutability, pure functions, single-return arrow functions
-- [utility-functions](rules/utility-functions.mdc) - Arrow functions exported as const in `src/utils/`
-- [optional-chaining](rules/optional-chaining.mdc) - Safe property access
-- [array-access](rules/array-access.mdc) - Prefer `.at()` over bracket notation
-- [imports](rules/imports.mdc) - Import paths and barrel exports
-
-### React
-
-- [react-components](rules/react-components.mdc) - Component structure, props, JSX conditionals, and styling
-
-### Architecture & Patterns
-
-- [project-structure](rules/project-structure.mdc) - `src/` domain folders vs `src/app/` Next.js routes
-- [barrel-exports](rules/barrel-exports.mdc) - Named exports in index files
-- [file-naming](rules/file-naming.mdc) - kebab-case file and folder names
-
-### Testing
-
-Prioritize functional tests over implementation tests. See [test-approach](rules/test-approach.mdc).
-
-- [test-approach](rules/test-approach.mdc) - Behavior-first tests, base props/params reuse
-- [test-fixing](rules/test-fixing.mdc) - Prefer fixing tests; confirm before changing production code
-- [test-mocks](rules/test-mocks.mdc) - Shared mocks from `@/mocks/` and `__mocks__`
-- [test-naming-and-structure](rules/test-naming-and-structure.mdc) - Describe/it naming, quoted refs (props, brands, constants)
-- [test-organization](rules/test-organization.mdc) - `it.each`, snapshots, class testing
-- [test-element-selection](rules/test-element-selection.mdc) - Querying elements in tests
-- [test-date-mocks](rules/test-date-mocks.mdc) - Mock or freeze time when code uses dates
-
-### Meta
-
-- [codebase-memory-first](rules/codebase-memory-first.mdc) - Consult Codebase Memory MCP before filesystem search or broad reads
-- [cursor-rules](rules/cursor-rules.mdc) - How to create and maintain Cursor rules
-- [package-installation](rules/package-installation.mdc) - Ask before adding, removing, or upgrading dependencies
-- [commit-messages](rules/commit-messages.mdc) - Conventional Commits format
+Project-specific guidance goes in `AGENTS.md` **outside** the `<!-- BEGIN:agent-kit-* -->` markers.

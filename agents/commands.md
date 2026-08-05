@@ -3,7 +3,7 @@
 ## Development
 
 ```bash
-pnpm dev          # Start Next.js dev server (runs setup:agent-links first)
+pnpm dev          # Start dev server (runs setup:agent-links first)
 pnpm build        # Production build
 pnpm start        # Start production server
 ```
@@ -12,13 +12,12 @@ pnpm start        # Start production server
 
 ```bash
 pnpm typecheck    # TypeScript check (tsc --noEmit)
-pnpm lint         # ESLint on src/**/*.ts(x)
+pnpm lint         # ESLint
 pnpm lint:fix     # ESLint with auto-fix
 pnpm format       # Prettier write
 pnpm format:check # Prettier check
 pnpm test         # Vitest (watch mode)
 pnpm test:run     # Vitest single run (CI)
-pnpm test:watch   # Vitest watch mode (alias)
 ```
 
 ## Agents
@@ -27,13 +26,13 @@ After cloning, init submodules and create local symlinks for Cursor and Claude r
 
 ```bash
 pnpm setup:submodules   # git submodule update --init --recursive
-pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, .agents/skills, and agents/commands
+pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, skills, and agents/commands
 pnpm setup:agents       # Both of the above
 ```
 
-### Cursor slash commands
+### Slash commands
 
-Project slash commands are generated from [agent-kit](https://github.com/rcrdk/agent-kit) into [agents/commands/](commands/) and wired into Cursor via `.cursor/commands`:
+Slash commands are symlinked from [agent-kit](https://github.com/rcrdk/agent-kit) into [agents/commands/](commands/) and wired into Cursor (`.cursor/commands`) and Claude Code (`.claude/commands`):
 
 | Command                  | Description                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------------- |
@@ -58,8 +57,6 @@ When the change centers on a **component or function**, use a **scope** in **cam
 git commit -m "feat(groupBy): add generic overload"
 git commit -m "fix(twCnMerge): handle empty class list"
 git commit -m "docs: document agent symlink setup"
-git commit -m "chore(setup-agent-links): update symlink script"
 ```
 
-See [README-DX.md](../README-DX.md) for Husky hooks, lint-staged, and editor setup.
-See [README-AGENTS.md](../README-AGENTS.md) for AI agent setup.
+See [../README-DX.md](../README-DX.md) for Husky hooks, lint-staged, and editor setup.
