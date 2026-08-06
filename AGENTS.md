@@ -79,6 +79,7 @@ pnpm dev         # Dev server
 - Run relevant tests before pushing
 - Follow commit format: `type(scope): subject` (see [agents/rules/commit-messages.mdc](agents/rules/commit-messages.mdc))
 - Match existing naming and file structure conventions
+- Call the GitHub CLI only through the `gh-personal` alias — `zsh -ic 'gh-personal …'` (see [agents/rules/github-cli.mdc](agents/rules/github-cli.mdc))
 
 ### Ask first
 
@@ -91,6 +92,7 @@ pnpm dev         # Dev server
 - Commit secrets or API keys
 - Force push to shared branches
 - Modify unrelated code in the same PR
+- Run plain `gh`, `gh-myside`, or `GH_CONFIG_DIR=… gh` — always `gh-personal`
 
 ## PR Checklist
 
@@ -122,6 +124,7 @@ Coding rules come from [agent-kit](https://github.com/rcrdk/agent-kit) and are s
 @agents/rules/deduplication.mdc
 @agents/rules/documentation.mdc
 @agents/rules/file-naming.mdc
+@agents/rules/github-cli.mdc
 @agents/rules/package-installation.mdc
 @agents/rules/project-structure.mdc
 @agents/rules/security.mdc
