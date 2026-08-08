@@ -71,6 +71,17 @@ pnpm test        # Unit tests
 pnpm dev         # Dev server
 ```
 
+## Workflow (Strict / Lean)
+
+Agent-kit provides slash **personas** (`/intake`, `/plan`, `/do`, `/debug`, `/test`, `/review`, `/secure`, …) routed by [`workflow-orchestrator`](agents/rules/workflow-orchestrator.mdc). Quality mode and the `/secure` gate live in `project.mdc` (create or refresh with `/intake`).
+
+| Mode       | Typical pipeline                                                                       |
+| ---------- | -------------------------------------------------------------------------------------- |
+| **Strict** | `/plan` → `/do` → `/debug` → `/test` → `/review` → `/secure` if gate → `/doc` / `/git` |
+| **Lean**   | `/do` → `/debug` if needed → `/review` → `/git`                                        |
+
+Macros such as `/rcrdk-full-delivery` and `/rcrdk-hotfix` run multi-phase flows in one request. Close deliveries per [`honest-delivery`](agents/rules/honest-delivery.mdc) (symptom / cause / evidence). See [agent-kit docs](.agents/agent-kit/docs/flows-and-adoption.md).
+
 ## Boundaries
 
 ### Always do
@@ -125,9 +136,11 @@ Coding rules come from [agent-kit](https://github.com/rcrdk/agent-kit) and are s
 @agents/rules/documentation.mdc
 @agents/rules/file-naming.mdc
 @agents/rules/github-cli.mdc
+@agents/rules/honest-delivery.mdc
 @agents/rules/package-installation.mdc
 @agents/rules/project-structure.mdc
 @agents/rules/security.mdc
+@agents/rules/workflow-orchestrator.mdc
 
 Read these when touching matching files:
 
@@ -255,30 +268,37 @@ The blocks between `<!-- BEGIN:agent-kit-base -->` / `<!-- END:agent-kit-base --
 After cloning, run `pnpm setup:agents` or `pnpm dev` locally. Agent symlinks are recreated automatically on `pnpm dev` (skipped when `CI` is set).
 
 ```
-.agents/agent-kit/  # submodule — edit rules, commands, and AGENTS.md base here
+.agents/agent-kit/  # submodule — edit rules, personas, commands, and AGENTS.md base here
 ├── rules/             # flat — every rule applies to every project
+├── personas/          # workflow personas (/plan, /do, /review, …)
 ├── agents-md/base.md  # shared AGENTS.md body — injected between markers
+├── skills/            # bundled skills (SKILL.md)
 └── commands/
 
 agents/
 ├── rules/          # generated symlinks → agent-kit rules
+├── personas/       # generated symlinks → agent-kit personas
 ├── commands/       # generated symlinks → agent-kit commands
-├── skills/         # optional project-local skills
+├── skills/         # generated symlinks → agent-kit skills (+ project-local skills)
 ├── README.md       # Rules index
 └── commands.md     # pnpm and git command reference
 
 .cursor/            # generated symlinks
 ├── rules -> ../agents/rules
+├── agents -> ../agents/personas
 ├── skills -> ../agents/skills
 └── commands -> ../agents/commands
 
 .claude/            # generated symlinks
 ├── rules -> ../agents/rules
+├── agents -> ../agents/personas
+├── commands -> ../agents/commands
 └── skills -> ../agents/skills
 ```
 
 - **[agents/README.md](agents/README.md)** - Rules index
 - **[agents/rules/](agents/rules/)** - Generated rule symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
+- **[agents/personas/](agents/personas/)** - Generated persona symlinks (`/plan`, `/do`, `/review`, …) — edit [agent-kit](https://github.com/rcrdk/agent-kit)
 - **[agents/commands/](agents/commands/)** - Generated slash command symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
 - **[agents/commands.md](agents/commands.md)** - Complete pnpm and git command reference
 - **[README-DX.md](README-DX.md)** - Husky, ESLint, Prettier, and editor setup

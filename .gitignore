@@ -59,3 +59,8 @@ agents/skills/*
 
 # Codebase Memory MCP (local index — see /rcrdk-index-codebase)
 .codebase-memory/
+
+# Agent symlinks and generated links (local only)
+.cursor/agents
+.claude/agents
+agents/personas/*.md
