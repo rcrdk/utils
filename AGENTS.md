@@ -12,8 +12,6 @@ This project uses **Next.js 16.2.9** (App Router). Version-matched docs ship bun
 
 You are a senior engineer working on rcrdk/utils, a personal utilities collection with a Next.js 16 app shell. Prioritize type safety, small reviewable diffs, and existing project conventions.
 
-<!-- BEGIN:agent-kit-base -->
-
 ## Engineering Principles
 
 - Do not preserve backward compatibility — remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations
@@ -80,7 +78,7 @@ Agent-kit provides slash **personas** (`/intake`, `/plan`, `/do`, `/debug`, `/te
 | **Strict** | `/plan` → `/do` → `/debug` → `/test` → `/review` → `/secure` if gate → `/doc` / `/git` |
 | **Lean**   | `/do` → `/debug` if needed → `/review` → `/git`                                        |
 
-Macros such as `/rcrdk-full-delivery` and `/rcrdk-hotfix` run multi-phase flows in one request. Close deliveries per [`honest-delivery`](agents/rules/honest-delivery.mdc) (symptom / cause / evidence). See [agent-kit docs](.agents/agent-kit/docs/flows-and-adoption.md).
+Macros such as `/rcrdk-full-delivery` and `/rcrdk-hotfix` run multi-phase flows in one request. Close deliveries per [`honest-delivery`](agents/rules/honest-delivery.mdc) (symptom / cause / evidence). See [agent-kit docs](https://github.com/rcrdk/agent-kit/blob/main/docs/flows-and-adoption.md).
 
 ## Boundaries
 
@@ -121,13 +119,11 @@ Macros such as `/rcrdk-full-delivery` and `/rcrdk-hotfix` run multi-phase flows 
 - Fix type errors before test failures
 - Read surrounding code and match existing patterns
 
-<!-- END:agent-kit-base -->
-
 <!-- BEGIN:agent-kit-rules -->
 
 ## Rules
 
-Coding rules come from [agent-kit](https://github.com/rcrdk/agent-kit) and are symlinked into `agents/rules/`. Cursor loads them from `.cursor/rules`; the imports below load the always-on ones for Claude Code.
+Coding rules live in `agents/rules/` as committed files, copied in from [agent-kit](https://github.com/rcrdk/agent-kit). Cursor loads them from `.cursor/rules`; the imports below load the always-on ones for Claude Code.
 
 @agents/rules/ask-before-commit.mdc
 @agents/rules/codebase-memory-first.mdc
@@ -259,27 +255,16 @@ export function Button({ label, onPress }: Readonly<ButtonProps>) {
 
 ## Extended Documentation
 
-Agent rules and settings come from **[agent-kit](https://github.com/rcrdk/agent-kit)** (`.agents/agent-kit`). Symlinks in `agents/`, `.cursor/`, and `.claude/` are generated locally and not committed to git.
+Everything under `agents/` is a **committed file in this repository**. Rules, personas, commands, and the shared part of this guide originated in **[agent-kit](https://github.com/rcrdk/agent-kit)** and were copied in by hand — there is no submodule and nothing fetches them at install time. Edit them here when the project needs it, and push improvements upstream to agent-kit so other projects can copy them in turn.
 
-The blocks between `<!-- BEGIN:agent-kit-base -->` / `<!-- END:agent-kit-base -->` and `<!-- BEGIN:agent-kit-rules -->` / `<!-- END:agent-kit-rules -->` above are injected by `setup:agent-links` from `.agents/agent-kit/` — **never edit them here**; edit agent-kit. Everything outside the markers is project-local.
-
-`scripts/setup-agent-links.mjs` is a stub; the linker lives in `.agents/agent-kit/scripts/link-agents.mjs`.
-
-After cloning, run `pnpm setup:agents` or `pnpm dev` locally. Agent symlinks are recreated automatically on `pnpm dev` (skipped when `CI` is set).
+Only the tool-facing views are generated: the symlinks under `.cursor/` and `.claude/`, `CLAUDE.md`, `.cursorrules`, `agents/commit-messages.cursorrules`, and the rules index between `<!-- BEGIN:agent-kit-rules -->` / `<!-- END:agent-kit-rules -->` above (rebuilt from `agents/rules/*.mdc` frontmatter). Those are gitignored — run `pnpm setup:agent-links`, or just `pnpm dev`, to recreate them (skipped when `CI` is set).
 
 ```
-.agents/agent-kit/  # submodule — edit rules, personas, commands, and AGENTS.md base here
-├── rules/             # flat — every rule applies to every project
-├── personas/          # workflow personas (/plan, /do, /review, …)
-├── agents-md/base.md  # shared AGENTS.md body — injected between markers
-├── skills/            # bundled skills (SKILL.md)
-└── commands/
-
-agents/
-├── rules/          # generated symlinks → agent-kit rules
-├── personas/       # generated symlinks → agent-kit personas
-├── commands/       # generated symlinks → agent-kit commands
-├── skills/         # generated symlinks → agent-kit skills (+ project-local skills)
+agents/             # committed — the source of truth
+├── rules/          # flat — every rule applies to every project
+├── personas/       # workflow personas (/plan, /do, /review, …)
+├── commands/       # rcrdk-* slash command macros
+├── skills/         # skills (SKILL.md per folder)
 ├── README.md       # Rules index
 └── commands.md     # pnpm and git command reference
 
@@ -297,9 +282,9 @@ agents/
 ```
 
 - **[agents/README.md](agents/README.md)** - Rules index
-- **[agents/rules/](agents/rules/)** - Generated rule symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
-- **[agents/personas/](agents/personas/)** - Generated persona symlinks (`/plan`, `/do`, `/review`, …) — edit [agent-kit](https://github.com/rcrdk/agent-kit)
-- **[agents/commands/](agents/commands/)** - Generated slash command symlinks — edit [agent-kit](https://github.com/rcrdk/agent-kit)
+- **[agents/rules/](agents/rules/)** - Coding rules
+- **[agents/personas/](agents/personas/)** - Workflow personas (`/plan`, `/do`, `/review`, …)
+- **[agents/commands/](agents/commands/)** - Slash command macros
 - **[agents/commands.md](agents/commands.md)** - Complete pnpm and git command reference
 - **[README-DX.md](README-DX.md)** - Husky, ESLint, Prettier, and editor setup
 - **[README-AGENTS.md](README-AGENTS.md)** - AI agent setup and symlink guide

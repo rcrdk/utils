@@ -22,17 +22,15 @@ pnpm test:run     # Vitest single run (CI)
 
 ## Agents
 
-After cloning, init submodules and create local symlinks for Cursor and Claude rules, skills, and slash commands (`prepare` / `predev` run these automatically when not in CI):
+After cloning, create the local symlinks for Cursor and Claude rules, personas, skills, and slash commands (`predev` runs this automatically when not in CI):
 
 ```bash
-pnpm setup:submodules   # git submodule update --init --recursive
-pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/rules, skills, and agents/commands
-pnpm setup:agents       # Both of the above
+pnpm setup:agent-links  # Link .cursor/ and .claude/ to agents/*, rebuild generated files
 ```
 
 ### Slash commands
 
-Slash commands are symlinked from [agent-kit](https://github.com/rcrdk/agent-kit) into [agents/commands/](commands/) and wired into Cursor (`.cursor/commands`) and Claude Code (`.claude/commands`):
+Slash commands live in [agents/commands/](commands/) and are wired into Cursor (`.cursor/commands`) and Claude Code (`.claude/commands`):
 
 | Command                  | Description                                                                                   |
 | ------------------------ | --------------------------------------------------------------------------------------------- |

@@ -68,4 +68,4 @@ src/
 - **Imports**: `@/` alias for paths under `src/`
 - **Commits**: [Conventional Commits](https://www.conventionalcommits.org/) (`type(scope): subject`)
 
-Coding rules and slash commands come from [agent-kit](https://github.com/rcrdk/agent-kit) (`.agents/agent-kit`) and appear locally under [agents/](./agents/). After cloning, run `pnpm setup:agents` or `pnpm dev` to wire them into Cursor.
+Coding rules and slash commands are committed under [agents/](./agents/), copied in from [agent-kit](https://github.com/rcrdk/agent-kit). After cloning, run `pnpm setup:agent-links` or `pnpm dev` to wire them into Cursor.
