@@ -67,7 +67,7 @@ In CI (`CI=true`), the script exits immediately and does nothing.
 
 ## Next.js documentation
 
-`AGENTS.md` includes a docs index for **Next.js 16.2.9**. Agents should read from `node_modules/next/dist/docs/` before making Next.js changes — training data is often outdated.
+`AGENTS.md` includes a docs index for **Next.js 16.4.4**. Agents should read from `node_modules/next/dist/docs/` before making Next.js changes — training data is often outdated.
 
 This project uses the docs bundled with the installed `next` package. **Do not** run `npx @next/codemod agents-md` or create a `.next-docs/` folder — that workflow is for older Next.js versions without bundled docs.
 
