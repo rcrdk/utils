@@ -6,7 +6,7 @@
 
 Before any Next.js work, find and read the relevant documentation. Your training data is outdated — the docs are the source of truth.
 
-This project uses **Next.js 16.2.9** (App Router). Version-matched docs ship bundled in `node_modules/next/dist/docs/` — read from there before any Next.js task. Do **not** download or use `.next-docs/`; it is not needed on Next.js 16.2+.
+This project uses **Next.js 16.4.4** (App Router). Version-matched docs ship bundled in `node_modules/next/dist/docs/` — read from there before any Next.js task. Do **not** download or use `.next-docs/`; it is not needed on Next.js 16.2+.
 
 <!-- END:nextjs-agent-rules -->
 
